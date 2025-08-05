@@ -1,0 +1,79 @@
+## Schedule
+* Introduction to large imagine
+
+## Acknowledgements
+
+Thank you to David Stansby, Ruaridh Gollifer and Kimberly Meechan
+
+Hands-on materials based on HEFTIE textbook
+Introduction based on slides by Josh Moore and HEFTIE textbook
+
+## Context
+
+Data is getting larger
+Data is not standardised
+Community effort to collaborate
+    * bioformats
+    * OME zarr
+
+More on community in the afternoon
+
+## A short intro to zarr
+
+## A short intro to OME-zarr
+
+## A short intro to bioformats and bioio
+
+## Idea of this morning
+
+Get hands dirty with these context, at your own pace and interest
+
+## A warning
+
+Run on small data first
+
+## Default adventure
+
+* convert a tiff stack to OME zarr
+* apply a threshold to it
+
+## Self-paced learning
+
+* encouraged to create your own adventure
+  * work on your own data
+  * some time to report back
+* encouraged to get involved with others
+  * lots of diverse expertise in the room
+
+## Installation
+
+TODO versions that work. test across OS 
+
+```bash
+conda create -n big-imaging-data python=3.12
+pip install bioio zarr jupyterlab pydantic_zarr numcodecs
+```
+You may additionally need a reader plugin for your specific image data, e.g.
+
+```bash
+pip install bioio_sldy
+```
+
+## Default data
+
+## Inspecting your image
+
+## Converting your image to OME-zarr
+
+## the mouse checkerboard challenge
+agnostic segmentation into cortical and trabecular bone chunk wise
+
+## ideas
+
+* different chunksizes gives diff
+* benchmarks
+* apply to own data
+* hard: more difficult segmentation
+  * apply a gaussian filter
+
+

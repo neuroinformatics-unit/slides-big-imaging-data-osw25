@@ -1,13 +1,13 @@
 ---
-title: A template presentation
+title: Big Imaging Data
 subtitle: so much fun
-author: SWC Neuroinformatics Unit
+author: Alessandro Felder, Igor Tatarnikov
 execute: 
   enabled: true
 format:
     revealjs:
-        theme: [default, niu-dark.scss]
-        logo: img/logo_niu_dark.png
+        theme: [default, niu-light.scss]
+        logo: img/logo_niu_light.png
         footer: "Edit this footer | 2023-07-26"
         slide-number: c
         menu:
@@ -26,8 +26,8 @@ format:
           fontFamily: arial
           curve: linear
     html:
-        theme: [default, niu-dark.scss]
-        logo: img/logo_niu_dark.png
+        theme: [default, niu-light.scss]
+        logo: img/logo_niu_light.png
         date: "2023-07-05"
         toc: true
         code-overflow: scroll
@@ -42,6 +42,22 @@ format:
 my-custom-stuff:
    my-reuseable-variable: "I can use this wherever I want in the markdown, and change it in only once place :)"
 ---
+
+## Schedule
+
+AM
+
+* Short intro
+* bonus content: benchmarks!
+* Self-paced tutorials around handling big imaging data
+
+PM
+
+* short intro
+* What next for careers and community in bioimage analysis? 
+
+{{< include slides/handling-large-image-data.qmd >}}
+{{< include slides/careers-community.qmd >}}
 
 ## Contents
 
