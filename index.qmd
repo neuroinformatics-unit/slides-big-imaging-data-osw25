@@ -1,14 +1,14 @@
 ---
 title: Big Imaging Data
-subtitle: so much fun
-author: Alessandro Felder, Igor Tatarnikov
+subtitle: Bridging Bioimaging and Research Software Engineering
+author: Alessandro Felder, Igor Tatarnikov, Ruaridh Gollifer, Kimberly Meechan
 execute: 
   enabled: true
 format:
     revealjs:
         theme: [default, niu-light.scss]
         logo: img/logo_niu_light.png
-        footer: "Edit this footer | 2023-07-26"
+        footer: "Big Imaging Data | NIU Open Software Week | 2025-08-14"
         slide-number: c
         menu:
             numbers: true
@@ -28,7 +28,7 @@ format:
     html:
         theme: [default, niu-light.scss]
         logo: img/logo_niu_light.png
-        date: "2023-07-05"
+        date: "2025-08-14"
         toc: true
         code-overflow: scroll
         highlight-style: atom-one
@@ -39,89 +39,486 @@ format:
           margin-left: 0
         embed-resources: true
         page-layout: full
-my-custom-stuff:
-   my-reuseable-variable: "I can use this wherever I want in the markdown, and change it in only once place :)"
 ---
 
-## Schedule
+## Introduction
 
-AM
+:::: {.columns}
+::: {.column}
+* Research Software Engineer
+* Core developer of BrainGlobe
+* [UCL BioImage Interest Group](https://www.ucl.ac.uk/science-technology-platforms/imaging/ucl-bioimage-interest-group) co-lead
+* 2025 SSI fellow
+:::
+::: {.column}
+![](img/alessandro.png)
+:::
+::::
 
-* Short intro
-* bonus content: benchmarks!
-* Self-paced tutorials around handling big imaging data
+## Schedule {.smaller}
+AM (technical)
 
-PM
+* Intro to Big Imaging Data
+  * Bonus content: benchmarks! 
+* Handling big imaging data with Python
+  * self-paced, collaborative learning
 
-* short intro
+PM (community)
+
+* A personal perspective
 * What next for careers and community in bioimage analysis? 
 
-{{< include slides/handling-large-image-data.qmd >}}
-{{< include slides/careers-community.qmd >}}
+## Installation
 
-## Contents
+TODO where do I put this slide?
+TODO link to slides themselves
+TODO versions that work. test across OS 
 
-Some example slides - [also look at example RevealJS slides in the Quarto docs](https://quarto.org/docs/presentations/revealjs/)
+see https://github.com/alessandrofelder/heftie-textbook/blob/main/pyproject.toml
 
-* Non-executable and executable code-blocks
-* bullet points with highlighting 
-* two-column slides 
-* how to include a slide from a separate MD file
-* preview and link to a webpage
+```bash
+conda create -n big-imaging-data python=3.12
+```
+```bash
+pip install bioio zarr<3  jupyterlab pydantic_zarr numcodecs
+```
+You may additionally need a reader plugin for your specific image data, e.g.
 
-## Just a code block, nothing gets executed...
-
-... but there is some fancy highlighting
-
-```{.python code-line-numbers="1|3|4-9"}
-from pathlib import Path
-
-home_path = Path.home()
-if home_path.exists():
-  data_path = home_path / "data"
-else:
-  pass
-  # raise some error maybe?
+```bash
+pip install bioio_sldy
 ```
 
-## A code block that's actually executed at render-time
+## Acknowledgements {.smaller}
 
-```{python}
-#| echo: true
-#| code-fold: true
+:::: {.columns}
+::: {.column width="33%"}
+![](img/david.png)
+:::
+::: {.column width="33%"}
+![](img/ruaridh.png)
+:::
+::: {.column width="33%"}
+![](img/kimberly.png)
+:::
+::::
 
-from pathlib import Path
+Thank you to David Stansby, Ruaridh Gollifer and Kimberly Meechan!
 
-print("Hello world")
-```
-
-## You can execute code without showing that you have by using #|echo: false
-```{python}
-#| echo: false
-
-from pathlib import Path
-
-print("Hello world")
-```
-
-{{< include slides/extra_slide.qmd >}}
-
-## An example image
-
-Include an image:
-
-![](img/bg_logo_wide.png){width=900 fig-align=center}
-
-
-## Link and a preview a webpage:
-
-::: {style="text-align: center; margin-top: 1em"}
-[interoperable Python-based tools for computational neuroanatomy](https://brainglobe.info/index.html){preview-link="true" style="text-align: center"}
+::: aside
+* Hands-on materials based on the [HEFTIE textbook](https://heftie-textbook.readthedocs.io/en/latest/)
+* Introduction based [on slides by Josh Moore](https://www.ebi.ac.uk/training/events/towards-open-and-standardised-imaging-data-introduction-bio-formats-ome-tiff-and-ome-zarr/), the [HEFTIE textbook](https://heftie-textbook.readthedocs.io/en/latest/), and slides by textbook authors.
 :::
 
-## Use a variable several times
+## Wider context in current bioimaging
 
-Variables defined in the metadata is re-useable anywhere
+Data is getting larger
 
-* {{< meta my-custom-stuff.my-reuseable-variable >}}
-* {{< meta my-custom-stuff.my-reuseable-variable >}}
+Data is not standardised
+
+Community efforts to collaborate
+
+  * `bioformats`
+  * more recently, `OME-zarr`
+
+More on community in the afternoon
+
+## TIFF
+
+:::: {.columns}
+::: {.column}
+* Current _de facto_ standard (aside from proprietary)
+  * Large stacks: folders of 2D tiffs
+* Not designed for scientific applications
+* `bioformats` can help convert from proprietary
+:::
+::: {.column}
+![](img/2d-stack.png)
+::: 
+::::
+
+## Limitations
+
+:::: {.columns}
+::: {.column}
+1. Data does not fit into memory.
+2. Would be nice to compress data, 
+   * But need to uncompress whole files to read a few pixels.
+   * Uncompressing can be slow
+:::
+::: {.column}
+![](img/2d-stack.png){height=450}
+:::
+::::
+
+::: aside
+Conversion via `bioformats` also can be slow
+:::
+
+## Solution (spoiler!)
+
+OME-zarr
+
+* community support[^1]
+* uses "chunked storage"
+* uses "pyramidal file format"
+
+[^1]: Moore, J., Basurto-Lozada, D., Besson, S. et al. OME-Zarr: a cloud-optimized bioimaging file format with international community support. Histochem Cell Biol 160, 223–251 (2023). <https://doi.org/10.1007/s00418-023-02209-1>
+
+
+# Intro to chunked storage and pyramidal file formats
+
+## Folder of 2D tiffs
+
+:::: {.columns}
+::: {.column}
+* A form of chunked storage
+:::
+::: {.column}
+![](img/2d-stack.png){height=550}
+::: 
+::::
+
+## Folder of 2D tiffs
+
+:::: {.columns}
+::: {.column}
+* Can access pixels in a few planes without loading whole image into memory 
+:::
+::: {.column}
+![](img/2d-stack.png){height=550}
+::: 
+::::
+
+
+## Folder of 2D tiffs
+
+:::: {.columns}
+::: {.column}
+* Can access pixels in a few planes without loading whole image into memory 
+* Still only 4% of read data actually needed
+:::
+::: {.column}
+![](img/2d-stack-access.png){height=550}
+::: 
+::::
+
+## Folder of 2D tiffs
+
+:::: {.columns}
+::: {.column}
+* Even more limited in some situations:
+:::
+::: {.column}
+![](img/2d-stack-access-bad.png){height=550}
+::: 
+::::
+
+## Chunked storage {.smaller}
+
+:::: {.columns}
+::: {.column}
+![](img/stack-big-chunks.png){height=400}
+:::
+::: {.column}
+![](img/stack-small-chunks.png){height=400}
+::: 
+::::
+
+* Choose chunk size when we create the overall image "file"
+* Save each chunk into a separate file
+
+## Chunked storage {.smaller}
+
+:::: {.columns}
+::: {.column}
+![](img/2d-stack-access.png){height=400}
+:::
+::: {.column}
+![](img/chunk-access.png){height=400}
+::: 
+::::
+
+* Allows reading and decompressing fewer pixels
+
+## Chunked storage
+
+`zarr`
+
+## Lots of choices
+
+* where should we store the data?
+  * on the cloud or locally?
+* how big should we make the chunks?
+* how should we compress each chunk?
+
+Luckily, Ruaridh and Kimberly can help!
+
+## Benchmarking zarr{.smaller}
+
+TODO: explain benchmarking setup: what image? how big was the image? how was benchmarking performed?
+
+## Benchmarking zarr{.smaller}
+
+![](img/benchmarks-1.png)
+
+Choice of compression library affects read time more than compression level.
+
+## Benchmarking zarr{.smaller}
+
+![](img/benchmarks-2.png)
+
+Choice of compression library affects write time more than compression level.
+
+## Benchmarking zarr
+
+TODO: split image into 3, and put in separate columns
+
+:::: {.columns}
+::: {.column}
+Tensorstore is a lot faster at reading data than zarr-python.
+:::
+::: {.column}
+![](img/benchmarks-3.png)
+:::
+::::
+
+## Benchmarking zarr
+
+![](img/benchmarks-4.png){height=450}
+
+Larger chunk sizes reduce reading time (but will increase memory usage!)
+
+## Benchmarking zarr conclusions {.smaller}
+
+Approximately "optimal" choices
+
+* Use `tensorstore` library to read data
+* Split it into chunks of 100,100,100
+* Compress it with `blosc-zstd` at level `12`
+
+::: aside
+This could be different for different data!
+:::
+
+## Pyramidal file formats
+
+Chunks help with reading subsets of pixels, but what it you want to view the image as whole?
+
+## Pyramidal file formats
+
+![](img/multiscale.png)
+Idea: multiscale images!
+
+## Pyramidal file formats
+
+![](img/multiscale.png)
+Even better idea: multiscale images that follow a standard.
+
+## Further topics {.smaller}
+
+* tools are in flux
+  * `zarr` v2 versus v3 
+  * which tools are compatible with which?!
+* [sharding](https://zarr.readthedocs.io/en/latest/user-guide/performance.html#sharding)
+  * filesystems don't like many small files!
+
+## Plan
+* handling OME zarr data with Python
+* get your hands dirty
+  * gain an intuition
+
+## Default adventure
+
+* convert a tiff stack to OME zarr
+* apply a threshold to it, chunk by chunk
+
+## Self-paced learning
+
+* encouraged to create your own adventure
+  * work on your own data
+  * some time to report back
+* encouraged to get involved with others
+  * lots of diverse expertise in the room
+
+## Some tips
+* bioio + reader plugins
+* run on small data first
+* ask for help
+
+## A warning
+Run on small data first
+
+:::: {.columns}
+::: {.column}
+![](img/tibia-in-file-browser.png)
+:::
+::: {.column}
+![](img/activity-monitor-full-ram.png)
+:::
+::::
+
+::: aside
+On an Ubuntu desktop with 68GB memory.
+:::
+
+## A warning
+Run on small data first
+
+![](img/vscode-crash.png){fig-align="center"}
+
+::: aside
+On an Ubuntu desktop with 68GB memory.
+:::
+
+
+## Default data
+
+## Inspecting your image
+
+## Converting your image to OME-zarr
+
+## the mouse checkerboard challenge
+agnostic segmentation into cortical and trabecular bone chunk wise
+
+## ideas
+
+* different chunksizes gives diff
+* benchmarks
+* apply to own data
+* hard: more difficult segmentation
+  * apply a gaussian filter
+
+
+
+# lunch break!
+
+
+# What next for community and careers in bioimage analysis?
+
+## Introductory context
+
+* setting the scene from my perspective
+* please disagree
+
+## Big imaging data {.smaller}
+
+![](img/microns-dataset){width=700 fig-align=center}
+
+e.g. the IARPA MICrONS dataset
+
+## Big imaging data {.smaller}
+
+> This IARPA MICrONS dataset spans a 1.4mm x .87mm x .84 mm volume of cortex in a P87 mouse. The dataset was imaged using two-photon microscopy, microCT, and serial electron microscopy, and then reconstructed using a combination of AI and human proofreading.
+
+* Gaining insight from large imaging data requires diverse technical expertise
+* Collaboration and technical skills are essential!
+
+## Postdoc careers {.smaller}
+
+![](img/paucity-of-postdocs.png){width=700 fig-align=center}
+
+> Madeline Lancaster, a neuroscientist at the University of Cambridge, UK, can relate to that. In July, she received a total of 36 applications for a postdoctoral position in her laboratory, many fewer than the couple of hundred that she originally expected. “I had been nervous that I wouldn’t be able to go through all of the applications,” she says. Those 36 didn’t lead to a single appointment. “I still have not filled the position,” she says. “There seems to be lots of competition for strong candidates.”
+[^2]
+
+[^2]: [Nature News article on postdoc careers in 2022](https://doi.org/10.1038/d41586-022-02781-x)
+
+
+## Postdoc careers {.smaller}
+
+![](img/nature-news-2025.png){width=700 fig-align=center}
+
+
+## Postdoc careers {.smaller}
+> Those who stayed and landed a coveted faculty position were more likely to have had a highly cited paper, changed their research topic between their PhD and postdoc, or moved abroad after receiving their doctorate.
+[^3]
+
+[^3]: [Nature News article on postdoc careers in 2025](https://doi.org/10.1038/d41586-025-00142-y)
+
+## My career in selected conferences {.smaller}
+::: {.columns}
+
+:::: {.column width="50%"}
+**SSI Collaborations Workshop**
+
+- 2015 (Oxford) (Hackday)
+- 2017 (Leeds)
+- 2018 (Cardiff) (Hackday)
+- 2019 (Loughborough)
+- 2020 (online)
+- 2023 (Manchester)
+- 2024 (Warwick)
+- 2025 (Stirling)
+::::
+
+:::: {.column width="50%"}
+**Imaging Conferences**
+
+- NEUBIAS 2018
+- Microscience Microscopy Congress 2019 🧑🏻‍💻
+- CBIAS 2022
+- CBIAS 2023
+- GloBIAS 2024
+- CBIAS 2024 🧑🏻‍🎓
+- (CBIAS 2025 - co-organiser)
+::::
+
+:::
+
+### Bioimage Analyst
+
+TODO: define 
+
+## GloBIAS survey 2024 {.smaller}
+
+![](img/supplementary-figure-globias-survey.png){width=900 fig-align=center}
+
+From ["GloBIAS: strengthening the foundations of BioImage Analysis"; AA Corbat, CG Walther, LR de la Ballina et al, arXiv preprint arXiv:2507.06407, 2025](https://arxiv.org/abs/2507.06407v1)
+
+## Careers paths for digital research technology professionals (RTPs) at UCL {.smaller}
+
+Note that some people are de-facto RTPs, and RTPs have existed since before they were labelled.
+
+::: aside
+* Langridge, Chris; Chisholm, Louise (2024). ARC Professional Research Investment Strategy Managers Job Description Framework. University College London. Model. https://doi.org/10.5522/04/25196612.v2
+* Langridge, Chris (2024). Job Descriptions and Framework for Centre for Advanced Research Computing (ARC) Research Software Engineer. University College London. Model. https://doi.org/10.5522/04/25196066.v1
+* Langridge, Chris (2024). Job Descriptions and Framework for Centre for Advanced Research Computing (ARC) Research Data Steward. University College London. Model. https://doi.org/10.5522/04/25196918.v1
+* Langridge, Chris (2024). Job Descriptions and Framework for Centre for Advanced Research Computing (ARC) Research Infastructure Developer. University College London. Model. https://doi.org/10.5522/04/25197152.v1
+* Langridge, Chris (2024). Job Descriptions and Framework for Centre for Advanced Research Computing (ARC) Research Data Scientists. University College London. Model. https://doi.org/10.5522/04/25197182.v1
+:::
+
+## My SSI fellowship
+
+![](img/ponte-dei-salti.jpg){width=900 fig-align=center}
+Peter Sieling, CC BY 2.0. 
+
+A bridge between Bioimaging and Research Software Engineering
+
+## What bridge?
+
+![](img/rse-and-bia-career-litmap){width=900 fig-align=center}
+
+## Why build the bridge
+
+* advocacy toward univerisity leadership/policy makers
+* best practice knowledge exchange
+* co-design
+
+## How?
+
+Speedblogging
+* choose question of interest
+* self-organise into groups
+
+## Speedblogging tips
+* assign a chair and a scribe
+
+## Speedblogging topics
+
+TODO: link each of these topics to a google doc
+
+* What would a bioimage analyst career path look like?
+* How do we bridge the gap between generalist and domain-specific technical communities
+* Bioimage analyst careers: what has been achieved/what is the next priority
+* Open source in bioimage analysis
+
+
