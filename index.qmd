@@ -306,13 +306,20 @@ Chunks help with reading subsets of pixels, but what it you want to view the ima
 
 ## Pyramidal file formats
 
-![](img/multiscale.png)
+![](img/multiscale.png){height=450}
+
 Idea: multiscale images!
 
 ## Pyramidal file formats
 
-![](img/multiscale.png)
+![](img/multiscale.png){height=450}
+
 Even better idea: multiscale images that follow a standard.
+
+## OME-zarr
+
+TODO: expand
+A metadata standard for biological images 
 
 ## Further topics {.smaller}
 
@@ -323,6 +330,7 @@ Even better idea: multiscale images that follow a standard.
   * filesystems don't like many small files!
 
 ## Plan
+
 * handling OME zarr data with Python
 * get your hands dirty
   * gain an intuition
@@ -464,7 +472,7 @@ e.g. the IARPA MICrONS dataset
 
 :::
 
-### Bioimage Analyst
+## Bioimage Analyst
 
 TODO: define 
 
