@@ -68,37 +68,19 @@ PM (community)
 * A personal perspective
 * What next for careers and community in bioimage analysis? 
 
-## Installation
-
-TODO where do I put this slide?
-TODO link to slides themselves
-TODO versions that work. test across OS 
-
-see https://github.com/alessandrofelder/heftie-textbook/blob/main/pyproject.toml
-
-```bash
-conda create -n big-imaging-data python=3.12
-```
-```bash
-pip install bioio zarr<3  jupyterlab pydantic_zarr numcodecs
-```
-You may additionally need a reader plugin for your specific image data, e.g.
-
-```bash
-pip install bioio_sldy
-```
+Find these slides at <https://neuroinformatics.dev/slides-big-imaging-data-osw25/>.
 
 ## Acknowledgements {.smaller}
 
 :::: {.columns}
 ::: {.column width="33%"}
-![](img/david.png)
+![](img/david.png){width=250}
 :::
 ::: {.column width="33%"}
-![](img/ruaridh.png)
+![](img/ruaridh.png){width=250}
 :::
 ::: {.column width="33%"}
-![](img/kimberly.png)
+![](img/kimberly.png){width=250}
 :::
 ::::
 
@@ -242,7 +224,7 @@ OME-zarr
 
 ## Chunked storage
 
-`zarr`
+`zarr` is a specification for how an array should be stored into chunks.
 
 ## Lots of choices
 
@@ -432,8 +414,7 @@ Even better idea: multiscale images that follow a standard.
 
 ## OME-zarr
 
-TODO: expand
-A metadata standard for biological images 
+Adds 
 
 ## Further topics {.smaller}
 
@@ -441,7 +422,7 @@ A metadata standard for biological images
   * `zarr` v2 versus v3 
   * which tools are compatible with which?!
 * [sharding](https://zarr.readthedocs.io/en/latest/user-guide/performance.html#sharding)
-  * filesystems don't like many small files!
+* filesystems don't like many small files!
 
 ## Plan
 
@@ -466,6 +447,12 @@ A metadata standard for biological images
 * bioio + reader plugins
 * run on small data first
 * ask for help
+You may additionally need a reader plugin for your specific image data, e.g.
+
+
+```bash
+pip install bioio_sldy
+```
 
 ## A warning
 Run on small data first
@@ -492,6 +479,19 @@ Run on small data first
 On an Ubuntu desktop with 68GB memory.
 :::
 
+## Installation
+
+```bash
+conda create -n big-imaging-data-tutorial python=3.13 -y
+```
+```bash
+conda activate big-imaging-data-tutorial
+```
+```bash
+pip install "matplotlib" "jupyterlab" "numcodecs==0.15.1" "numpy==2.3.2" "zarr==2.18.7" "pydantic-zarr==0.7.0" "ome-zarr-models==0.1.10" "joblib==1.5.1" "tifffile[zarr]<2025.5.21" "bioio" "bioio-tifffile" "napari[all]" "napari-ome-zarr"
+```
+
+Find these slides at <https://neuroinformatics.dev/slides-big-imaging-data-osw25/>.
 
 ## Default data
 
