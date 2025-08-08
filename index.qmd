@@ -84,25 +84,23 @@ Find these slides at <https://neuroinformatics.dev/slides-big-imaging-data-osw25
 :::
 ::::
 
-Thank you to David Stansby, Ruaridh Gollifer and Kimberly Meechan!
-
-::: aside
+Thank you to HEFTIE textbook authors: David Stansby, Ruaridh Gollifer and Kimberly Meechan!
 * Hands-on materials based on the [HEFTIE textbook](https://heftie-textbook.readthedocs.io/en/latest/)
 * Introduction based [on slides by Josh Moore](https://www.ebi.ac.uk/training/events/towards-open-and-standardised-imaging-data-introduction-bio-formats-ome-tiff-and-ome-zarr/), the [HEFTIE textbook](https://heftie-textbook.readthedocs.io/en/latest/), and slides by textbook authors.
-:::
+* Has really helped me get up-to-speed!
 
-## Wider context in current bioimaging
 
-Data is getting larger
+## Bioimaging formats today
 
-Data is not standardised
-
-Community efforts to collaborate
-
+* Data is getting larger
+* Data is not standardised
+* Community efforts to collaborate
   * `bioformats`
   * more recently, `OME-zarr`
 
+::: aside
 More on community in the afternoon
+:::
 
 ## TIFF
 
@@ -122,8 +120,8 @@ More on community in the afternoon
 
 :::: {.columns}
 ::: {.column}
-1. Data does not fit into memory.
-2. Would be nice to compress data, 
+* Data does not fit into memory.
+* Would be nice to compress data, 
    * But need to uncompress whole files to read a few pixels.
    * Uncompressing can be slow
 :::
@@ -140,14 +138,16 @@ Conversion via `bioformats` also can be slow
 
 OME-zarr
 
+::: {.incremental}
 * community support[^1]
 * uses "chunked storage"
 * uses "pyramidal file format"
+::: 
 
 [^1]: Moore, J., Basurto-Lozada, D., Besson, S. et al. OME-Zarr: a cloud-optimized bioimaging file format with international community support. Histochem Cell Biol 160, 223–251 (2023). <https://doi.org/10.1007/s00418-023-02209-1>
 
 
-# Intro to chunked storage and pyramidal file formats
+# Chunked storage and pyramidal file formats
 
 ## Folder of 2D tiffs
 
@@ -209,6 +209,20 @@ OME-zarr
 * Choose chunk size when we create the overall image "file"
 * Save each chunk into a separate file
 
+
+## Chunked storage {.smaller}
+
+:::: {.columns}
+::: {.column}
+![](img/stack-big-chunks.png){height=400}
+:::
+::: {.column}
+![](img/stack-small-chunks.png){height=400}
+::: 
+::::
+
+* Note: This also favours parallel reading and writing of files!
+
 ## Chunked storage {.smaller}
 
 :::: {.columns}
@@ -220,15 +234,19 @@ OME-zarr
 ::: 
 ::::
 
-* Allows reading and decompressing fewer pixels
+* Allows reading and decompressing fewer pixels when accessing sub arrays
 
-## Chunked storage
+## Chunked storage {.smaller}
 
-`zarr` is a specification for how a large N-dimensional arrays should be stored.
-
-{.incremet}
-
-## Lots of choices
+::: {.columns}
+::: {.column}
+`zarr` is an open-source specification for how a large N-dimensional arrays should be stored.
+:::
+::: {.column}
+![](img/zarr-pink-stacked.svg)
+:::
+:::
+## Lots of choices {.smaller}
 
 :::{.incremental}
 * where should we store the data?
@@ -236,13 +254,12 @@ OME-zarr
 * how big should we make the chunks?
 * how should we compress each chunk?
 
-Criteria:
+* Criteria:
+  * reading speed!
+    * writing speed maybe less important
+  * size on disk
 
-* reading speed!
-  * writing speed maybe less important
-* size on disk
-
-Luckily, Ruaridh and Kimberly can help!
+* Luckily, Ruaridh and Kimberly can help!
 :::
 
 
@@ -411,15 +428,16 @@ Chunks help with reading subsets of pixels, but what it you want to view the ima
 
 Idea: multiscale images!
 
-## Pyramidal file formats
+## OME zarr
 
-![](img/multiscale.png){height=450}
-
-Even better idea: multiscale images that follow a standard.
-
-## OME-zarr
-
-Adds 
+:::: {.column}
+::: {.column}
+Even better idea: multiscale images [follow a standard.](https://ngff.openmicroscopy.org/0.4/index.html#image-layout).
+:::
+::: {.column}
+![](img/pyramid-levels.png){height=450}
+:::
+::::
 
 ## Further topics {.smaller}
 
