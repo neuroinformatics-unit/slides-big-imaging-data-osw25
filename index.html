@@ -412,48 +412,147 @@ Alessandro Felder, Igor Tatarnikov, Ruaridh Gollifer, Kimberly Meechan
 <li>how big should we make the chunks?</li>
 <li>how should we compress each chunk?</li>
 </ul>
+<p>Criteria:</p>
+<ul>
+<li>reading speed!
+<ul>
+<li>writing speed maybe less important</li>
+</ul></li>
+<li>size on disk</li>
+</ul>
 <p>Luckily, Ruaridh and Kimberly can help!</p>
 </section>
 <section id="benchmarking-zarr" class="slide level2 smaller">
 <h2>Benchmarking zarr</h2>
-<p>TODO: explain benchmarking setup: what image? how big was the image? how was benchmarking performed?</p>
+<ul>
+<li><p><a href="https://github.com/HEFTIEProject/zarr-benchmarks">Open-source zarr-benchmarks repository</a> which is freely available</p></li>
+<li><p>Python based using pytest-benchmark</p></li>
+<li><p>SOON - a report summarising findings with plots, but still in progress</p></li>
+</ul>
 </section>
 <section id="benchmarking-zarr-1" class="slide level2 smaller">
+<h2>Benchmarking zarr</h2>
+<div class="columns">
+<div class="column">
+<ul>
+<li><p>3 images: heart (335 MB), dense segmentation, sparse segmentation</p>
+<ul>
+<li><strong>Heart: HiP-CT scan of a heart from the Human Organ Atlas</strong></li>
+<li>Dense: segmented neurons from electron microscopy</li>
+<li>Sparse: A few select segmented neurons from electron microscopy</li>
+</ul></li>
+<li><p><a href="https://zenodo.org/records/15691492">Images used are on zenodo</a></p></li>
+<li><p>All sized 806 x 629 x 629</p></li>
+<li><p>All 16-bit unsigned integer</p></li>
+</ul>
+</div><div class="column">
+<p><img data-src="img/heart.png" height="450"></p>
+</div></div>
+</section>
+<section id="benchmarking-zarr-2" class="slide level2 smaller">
+<h2>Benchmarking zarr</h2>
+<div class="columns">
+<div class="column">
+<ul>
+<li><p>3 images: heart (335 MB), dense segmentation, sparse segmentation</p>
+<ul>
+<li>Heart: HiP-CT scan of a heart from the Human Organ Atlas</li>
+<li><strong>Dense: segmented neurons from electron microscopy</strong></li>
+<li>Sparse: A few select segmented neurons from electron microscopy</li>
+</ul></li>
+<li><p><a href="https://zenodo.org/records/15691492">Images used are on zenodo</a></p></li>
+<li><p>All sized 806 x 629 x 629</p></li>
+<li><p>All 16-bit unsigned integer</p></li>
+</ul>
+</div><div class="column">
+<p><img data-src="img/dense.png" height="450"></p>
+</div></div>
+</section>
+<section id="benchmarking-zarr-3" class="slide level2 smaller">
+<h2>Benchmarking zarr</h2>
+<div class="columns">
+<div class="column">
+<ul>
+<li><p>3 images: heart (335 MB), dense segmentation, sparse segmentation</p>
+<ul>
+<li>Heart: HiP-CT scan of a heart from the Human Organ Atlas</li>
+<li>Dense: segmented neurons from electron microscopy</li>
+<li><strong>Sparse: A few select segmented neurons from electron microscopy</strong></li>
+</ul></li>
+<li><p><a href="https://zenodo.org/records/15691492">Images used are on zenodo</a></p></li>
+<li><p>All sized 806 x 629 x 629</p></li>
+<li><p>All 16-bit unsigned integer</p></li>
+</ul>
+</div><div class="column">
+<p><img data-src="img/sparse.png" height="450"></p>
+</div></div>
+</section>
+<section id="benchmarking-zarr-4" class="slide level2 smaller">
 <h2>Benchmarking zarr</h2>
 
 <img data-src="img/benchmarks-1.png" class="r-stretch"><p>Choice of compression library affects read time more than compression level.</p>
 </section>
-<section id="benchmarking-zarr-2" class="slide level2 smaller">
+<section id="benchmarking-zarr-5" class="slide level2 smaller">
 <h2>Benchmarking zarr</h2>
 
-<img data-src="img/benchmarks-2.png" class="r-stretch"><p>Choice of compression library affects write time more than compression level.</p>
+<img data-src="img/benchmarks-2.png" class="r-stretch"><p>Choice of compression library affects write time + higher compression levels take longer to write.</p>
 </section>
-<section id="benchmarking-zarr-3" class="slide level2">
+<section id="benchmarking-zarr-6" class="slide level2">
 <h2>Benchmarking zarr</h2>
-<p>TODO: split image into 3, and put in separate columns</p>
 <div class="columns">
 <div class="column">
-<p>Tensorstore is a lot faster at reading data than zarr-python.</p>
+<p><img data-src="img/benchmarks-6.png"> <img data-src="img/benchmarks-1.png"></p>
 </div><div class="column">
-<p><img data-src="img/benchmarks-3.png"></p>
+<p><img data-src="img/benchmarks-5.png"> Tensorstore is a lot faster at reading data than zarr-python.</p>
 </div></div>
 </section>
-<section id="benchmarking-zarr-4" class="slide level2">
+<section id="benchmarking-zarr-7" class="slide level2">
 <h2>Benchmarking zarr</h2>
-<p><img data-src="img/benchmarks-4.png" height="450"></p>
-<p>Larger chunk sizes reduce reading time (but will increase memory usage!)</p>
+<div class="columns">
+<div class="column">
+<p>Large chunks compress worse + increase memory usage</p>
+</div><div class="column">
+<p><img data-src="img/chunk-size-1-cropped.png"></p>
+</div></div>
+</section>
+<section id="benchmarking-zarr-8" class="slide level2">
+<h2>Benchmarking zarr</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><img data-src="img/chunk-size-2.png"></p>
+</div><div class="column" style="width:50%;">
+<p><img data-src="img/chunk-size-3.png"></p>
+</div></div>
+<p>Larger chunks are faster to read/write overall (+ make fewer files)</p>
+</section>
+<section id="benchmarking-zarr-9" class="slide level2 smaller">
+<h2>Benchmarking zarr</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><img data-src="img/benchmarks-2.png"></p>
+</div><div class="column" style="width:50%;">
+<p><img data-src="img/benchmarks-7.png"></p>
+</div></div>
+<p>Compression ratio vs write time plot for heart image (left) and dense segmentation (right)</p>
+<ul>
+<li><p>Segmentations normally compress a lot more (see compression ratio, y axis much higher values)</p></li>
+<li><p>You may have to use different settings depending on your image.</p></li>
+</ul>
 </section>
 <section id="benchmarking-zarr-conclusions" class="slide level2 smaller">
 <h2>Benchmarking zarr conclusions</h2>
-<p>Approximately “optimal” choices</p>
+<p>Approximately “optimal” choices*</p>
 <ul>
-<li>Use <code>tensorstore</code> library to read data</li>
-<li>Split it into chunks of 100,100,100</li>
-<li>Compress it with <code>blosc-zstd</code> at level <code>12</code></li>
+<li>Use <code>tensorstore</code> library for fastest read/write</li>
+<li><code>blosc-zstd</code> is a good default compressor</li>
+<li>Use a high compression level to get the smallest file size (usually means longer write times, but not much effect on read time)</li>
+<li>Smaller chunks = smaller overall file size + less memory usage</li>
+<li>Larger chunks = faster read/write times + fewer files</li>
+<li>It’s a balance! People often use 64x64x64 or 128x128x128</li>
 </ul>
 
 <aside><div>
-<p>This could be different for different data!</p>
+<p>*This is different for different data! Worth testing some small samples of your own data with different settings</p>
 </div></aside></section>
 <section id="pyramidal-file-formats" class="slide level2">
 <h2>Pyramidal file formats</h2>
