@@ -411,7 +411,7 @@ Approximately "optimal" choices*
 * It's a balance! People often use 64x64x64 or 128x128x128
 
 ::: aside
-*This could be different for different data! Worth testing some small samples of your own data with different settings
+*This is different for different data! Worth testing some small samples of your own data with different settings
 :::
 
 ## Pyramidal file formats
