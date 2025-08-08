@@ -502,18 +502,24 @@ Find these slides at <https://neuroinformatics.dev/slides-big-imaging-data-osw25
 
 ## Converting your image to OME-zarr
 
-## the mouse checkerboard challenge
-agnostic segmentation into cortical and trabecular bone chunk wise
+## The colourful mouse bone challenge
+
+![](img/colourful-mouse-tibia.png)
+Label a mouse tibia by chunks
+
 
 ## ideas
 
-* different chunksizes gives diff
-* benchmarks
-* apply to own data
-* hard: more difficult segmentation
-  * apply a gaussian filter
-
-
+* Adapt code to visualise/threshold remote data
+  * Remote data available at TODO
+* Parallelise iteration over chunks
+  * hard: what if you need info from more than one chunk?
+* Benchmark-related
+  * run benchmarks on your own data
+  * vary chunksize/compression level etc.
+* Skeletal Biology
+  * segment chunkwise into spongy (<50% bone per chunk) and compact (>50% bone per chunk)
+* Own ideas?!
 
 # lunch break!
 
