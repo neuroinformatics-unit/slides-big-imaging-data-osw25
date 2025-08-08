@@ -240,45 +240,35 @@ Alessandro Felder, Igor Tatarnikov, Ruaridh Gollifer, Kimberly Meechan
 <li>A personal perspective</li>
 <li>What next for careers and community in bioimage analysis?</li>
 </ul>
-</section>
-<section id="installation" class="slide level2">
-<h2>Installation</h2>
-<p>TODO where do I put this slide? TODO link to slides themselves TODO versions that work. test across OS</p>
-<p>see https://github.com/alessandrofelder/heftie-textbook/blob/main/pyproject.toml</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href=""></a><span class="ex">conda</span> create <span class="at">-n</span> big-imaging-data python=3.12</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href=""></a><span class="ex">pip</span> install bioio zarr<span class="op">&lt;</span>3  jupyterlab pydantic_zarr numcodecs</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>You may additionally need a reader plugin for your specific image data, e.g.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href=""></a><span class="ex">pip</span> install bioio_sldy</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Find these slides at <a href="https://neuroinformatics.dev/slides-big-imaging-data-osw25/" class="uri">https://neuroinformatics.dev/slides-big-imaging-data-osw25/</a>.</p>
 </section>
 <section id="acknowledgements" class="slide level2 smaller">
 <h2>Acknowledgements</h2>
 <div class="columns">
 <div class="column" style="width:33%;">
-<p><img data-src="img/david.png"></p>
+<p><img data-src="img/david.png" width="250"></p>
 </div><div class="column" style="width:33%;">
-<p><img data-src="img/ruaridh.png"></p>
+<p><img data-src="img/ruaridh.png" width="250"></p>
 </div><div class="column" style="width:33%;">
-<p><img data-src="img/kimberly.png"></p>
+<p><img data-src="img/kimberly.png" width="250"></p>
 </div></div>
-<p>Thank you to David Stansby, Ruaridh Gollifer and Kimberly Meechan!</p>
-
-<aside><div>
+<p>Thank you to HEFTIE textbook authors: David Stansby, Ruaridh Gollifer and Kimberly Meechan! * Hands-on materials based on the <a href="https://heftie-textbook.readthedocs.io/en/latest/">HEFTIE textbook</a> * Introduction based <a href="https://www.ebi.ac.uk/training/events/towards-open-and-standardised-imaging-data-introduction-bio-formats-ome-tiff-and-ome-zarr/">on slides by Josh Moore</a>, the <a href="https://heftie-textbook.readthedocs.io/en/latest/">HEFTIE textbook</a>, and slides by textbook authors. * Has really helped me get up-to-speed!</p>
+</section>
+<section id="bioimaging-formats-today" class="slide level2">
+<h2>Bioimaging formats today</h2>
 <ul>
-<li>Hands-on materials based on the <a href="https://heftie-textbook.readthedocs.io/en/latest/">HEFTIE textbook</a></li>
-<li>Introduction based <a href="https://www.ebi.ac.uk/training/events/towards-open-and-standardised-imaging-data-introduction-bio-formats-ome-tiff-and-ome-zarr/">on slides by Josh Moore</a>, the <a href="https://heftie-textbook.readthedocs.io/en/latest/">HEFTIE textbook</a>, and slides by textbook authors.</li>
-</ul>
-</div></aside></section>
-<section id="wider-context-in-current-bioimaging" class="slide level2">
-<h2>Wider context in current bioimaging</h2>
-<p>Data is getting larger</p>
-<p>Data is not standardised</p>
-<p>Community efforts to collaborate</p>
+<li>Data is getting larger</li>
+<li>Data is not standardised</li>
+<li>Community efforts to collaborate
 <ul>
 <li><code>bioformats</code></li>
 <li>more recently, <code>OME-zarr</code></li>
+</ul></li>
 </ul>
+
+<aside><div>
 <p>More on community in the afternoon</p>
-</section>
+</div></aside></section>
 <section id="tiff" class="slide level2">
 <h2>TIFF</h2>
 <div class="columns">
@@ -295,18 +285,18 @@ Alessandro Felder, Igor Tatarnikov, Ruaridh Gollifer, Kimberly Meechan
 <p><img data-src="img/2d-stack.png"></p>
 </div></div>
 </section>
-<section id="limitations" class="slide level2 scrollable">
+<section id="limitations" class="slide level2">
 <h2>Limitations</h2>
 <div class="columns">
 <div class="column">
-<ol type="1">
+<ul>
 <li>Data does not fit into memory.</li>
 <li>Would be nice to compress data,
 <ul>
 <li>But need to uncompress whole files to read a few pixels.</li>
 <li>Uncompressing can be slow</li>
 </ul></li>
-</ol>
+</ul>
 </div><div class="column">
 <p><img data-src="img/2d-stack.png" height="450"></p>
 </div></div>
@@ -318,14 +308,14 @@ Alessandro Felder, Igor Tatarnikov, Ruaridh Gollifer, Kimberly Meechan
 <h2>Solution (spoiler!)</h2>
 <p>OME-zarr</p>
 <ul>
-<li>community support<sup>1</sup></li>
-<li>uses “chunked storage”</li>
-<li>uses “pyramidal file format”</li>
+<li class="fragment">community support<sup>1</sup></li>
+<li class="fragment">uses “chunked storage”</li>
+<li class="fragment">uses “pyramidal file format”</li>
 </ul>
 <aside><ol class="aside-footnotes"><li id="fn1"><p>Moore, J., Basurto-Lozada, D., Besson, S. et al.&nbsp;OME-Zarr: a cloud-optimized bioimaging file format with international community support. Histochem Cell Biol 160, 223–251 (2023). <a href="https://doi.org/10.1007/s00418-023-02209-1" class="uri">https://doi.org/10.1007/s00418-023-02209-1</a></p></li></ol></aside></section>
 <section>
-<section id="intro-to-chunked-storage-and-pyramidal-file-formats" class="title-slide slide level1 center">
-<h1>Intro to chunked storage and pyramidal file formats</h1>
+<section id="chunked-storage-and-pyramidal-file-formats" class="title-slide slide level1 center">
+<h1>Chunked storage and pyramidal file formats</h1>
 
 </section>
 <section id="folder-of-2d-tiffs" class="slide level2">
@@ -390,37 +380,54 @@ Alessandro Felder, Igor Tatarnikov, Ruaridh Gollifer, Kimberly Meechan
 <h2>Chunked storage</h2>
 <div class="columns">
 <div class="column">
+<p><img data-src="img/stack-big-chunks.png" height="400"></p>
+</div><div class="column">
+<p><img data-src="img/stack-small-chunks.png" height="400"></p>
+</div></div>
+<ul>
+<li>Note: This also favours parallel reading and writing of files!</li>
+</ul>
+</section>
+<section id="chunked-storage-2" class="slide level2 smaller">
+<h2>Chunked storage</h2>
+<div class="columns">
+<div class="column">
 <p><img data-src="img/2d-stack-access.png" height="400"></p>
 </div><div class="column">
 <p><img data-src="img/chunk-access.png" height="400"></p>
 </div></div>
 <ul>
-<li>Allows reading and decompressing fewer pixels</li>
+<li>Allows reading and decompressing fewer pixels when accessing sub arrays</li>
 </ul>
 </section>
-<section id="chunked-storage-2" class="slide level2">
+<section id="chunked-storage-3" class="slide level2 smaller">
 <h2>Chunked storage</h2>
-<p><code>zarr</code></p>
+<div class="columns">
+<div class="column">
+<p><code>zarr</code> is an open-source specification for how a large N-dimensional arrays should be stored.</p>
+</div><div class="column">
+<p><img data-src="img/zarr-pink-stacked.svg"></p>
+</div></div>
 </section>
-<section id="lots-of-choices" class="slide level2">
+<section id="lots-of-choices" class="slide level2 smaller">
 <h2>Lots of choices</h2>
 <ul>
-<li>where should we store the data?
+<li class="fragment"><p>where should we store the data?</p>
 <ul>
-<li>on the cloud or locally?</li>
+<li class="fragment">on the cloud or locally?</li>
 </ul></li>
-<li>how big should we make the chunks?</li>
-<li>how should we compress each chunk?</li>
-</ul>
-<p>Criteria:</p>
+<li class="fragment"><p>how big should we make the chunks?</p></li>
+<li class="fragment"><p>how should we compress each chunk?</p></li>
+<li class="fragment"><p>Criteria:</p>
 <ul>
-<li>reading speed!
+<li class="fragment">reading speed!
 <ul>
-<li>writing speed maybe less important</li>
+<li class="fragment">writing speed maybe less important</li>
 </ul></li>
-<li>size on disk</li>
+<li class="fragment">size on disk</li>
+</ul></li>
+<li class="fragment"><p>Luckily, Ruaridh and Kimberly can help!</p></li>
 </ul>
-<p>Luckily, Ruaridh and Kimberly can help!</p>
 </section>
 <section id="benchmarking-zarr" class="slide level2 smaller">
 <h2>Benchmarking zarr</h2>
@@ -563,15 +570,14 @@ Alessandro Felder, Igor Tatarnikov, Ruaridh Gollifer, Kimberly Meechan
 <p><img data-src="img/multiscale.png" height="450"></p>
 <p>Idea: multiscale images!</p>
 </section>
-<section id="pyramidal-file-formats-2" class="slide level2">
-<h2>Pyramidal file formats</h2>
-<p><img data-src="img/multiscale.png" height="450"></p>
-<p>Even better idea: multiscale images that follow a standard.</p>
-</section>
 <section id="ome-zarr" class="slide level2">
-<h2>OME-zarr</h2>
-<p>TODO: expand A metadata standard for biological images</p>
-</section>
+<h2>OME zarr</h2>
+<div class="column">
+<div class="column">
+<p>Even better idea: multiscale images <a href="https://ngff.openmicroscopy.org/0.4/index.html#image-layout">follow a standard.</a>.</p>
+</div><div class="column">
+<p><img data-src="img/pyramid-levels.png" height="450"></p>
+</div></div></section>
 <section id="further-topics" class="slide level2 smaller">
 <h2>Further topics</h2>
 <ul>
@@ -600,7 +606,8 @@ Alessandro Felder, Igor Tatarnikov, Ruaridh Gollifer, Kimberly Meechan
 <h2>Default adventure</h2>
 <ul>
 <li>convert a tiff stack to OME zarr</li>
-<li>apply a threshold to it, chunk by chunk</li>
+<li>apply a threshold to it</li>
+<li>colour thresholded data chunk by chunk</li>
 </ul>
 </section>
 <section id="self-paced-learning" class="slide level2">
@@ -617,14 +624,23 @@ Alessandro Felder, Igor Tatarnikov, Ruaridh Gollifer, Kimberly Meechan
 </ul></li>
 </ul>
 </section>
-<section id="some-tips" class="slide level2">
+<section id="some-tips" class="slide level2 smaller">
 <h2>Some tips</h2>
 <ul>
-<li>bioio + reader plugins</li>
 <li>run on small data first</li>
+<li>think about
+<ul>
+<li>do you need to update array contents?</li>
+<li>are you overwriting existing contents?</li>
+<li></li>
+</ul></li>
 <li>ask for help</li>
 </ul>
-</section>
+
+<aside><div>
+<p>You may additionally need a reader plugin for your specific image data, e.g.&nbsp;if you have <code>sldy</code> images</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href=""></a><span class="ex">pip</span> install bioio_sldy</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></aside></section>
 <section id="a-warning" class="slide level2">
 <h2>A warning</h2>
 <p>Run on small data first</p>
@@ -650,33 +666,57 @@ Alessandro Felder, Igor Tatarnikov, Ruaridh Gollifer, Kimberly Meechan
 <aside><div>
 <p>On an Ubuntu desktop with 68GB memory.</p>
 </div></aside></section>
+<section id="installation" class="slide level2 smaller">
+<h2>Installation</h2>
+<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href=""></a><span class="ex">conda</span> create <span class="at">-n</span> big-imaging-data-tutorial python=3.13 <span class="at">-y</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href=""></a><span class="ex">conda</span> activate big-imaging-data-tutorial</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href=""></a><span class="ex">pip</span> install <span class="st">"matplotlib"</span> <span class="st">"jupyterlab"</span> <span class="st">"numcodecs==0.15.1"</span> <span class="st">"numpy==2.3.2"</span> <span class="st">"zarr==2.18.7"</span> <span class="st">"pydantic-zarr==0.7.0"</span> <span class="st">"ome-zarr-models==0.1.10"</span> <span class="st">"joblib==1.5.1"</span> <span class="st">"tifffile[zarr]&lt;2025.5.21"</span> <span class="st">"bioio"</span> <span class="st">"bioio-tifffile"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href=""></a><span class="ex">pip</span> install <span class="st">"napari[all]"</span> <span class="st">"napari-ome-zarr"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+<aside><div>
+<p>Versions roughly match the <a href="https://heftie-textbook.readthedocs.io/en/latest/">HEFTIE textbook</a>. Find these slides at <a href="https://neuroinformatics.dev/slides-big-imaging-data-osw25/" class="uri">https://neuroinformatics.dev/slides-big-imaging-data-osw25/</a>.</p>
+</div></aside></section>
+<section id="installation-1" class="slide level2 smaller">
+<h2>Installation</h2>
+<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href=""></a><span class="fu">git</span> clone https://github.com/neuroinformatics-unit/slides-big-imaging-data-osw25.git</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>or download from <a href="https://github.com/neuroinformatics-unit/slides-big-imaging-data-osw25/blob/main/tutorials/" class="uri">https://github.com/neuroinformatics-unit/slides-big-imaging-data-osw25/blob/main/tutorials/</a> and then run</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href=""></a><span class="ex">jupyter</span> lab</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>from the <code>tutorials/</code> folder in your terminal.</p>
+</section>
 <section id="default-data" class="slide level2">
 <h2>Default data</h2>
+<p><img data-src="img/mouse-tibia.png"> “The colourful mouse bone challenge”</p>
 </section>
-<section id="inspecting-your-image" class="slide level2">
-<h2>Inspecting your image</h2>
+<section id="the-colourful-mouse-bone-challenge" class="slide level2">
+<h2>The colourful mouse bone challenge</h2>
+<p><img data-src="img/colourful-mouse-tibia.png"> Label a mouse tibia by chunks</p>
 </section>
-<section id="converting-your-image-to-ome-zarr" class="slide level2">
-<h2>Converting your image to OME-zarr</h2>
-</section>
-<section id="the-mouse-checkerboard-challenge" class="slide level2">
-<h2>the mouse checkerboard challenge</h2>
-<p>agnostic segmentation into cortical and trabecular bone chunk wise</p>
-</section>
-<section id="ideas" class="slide level2">
-<h2>ideas</h2>
+<section id="ideas" class="slide level2 smaller">
+<h2>Ideas</h2>
 <ul>
-<li>different chunksizes gives diff</li>
-<li>benchmarks</li>
-<li>apply to own data</li>
-<li>hard: more difficult segmentation
+<li>Adapt code to visualise/threshold remote data
 <ul>
-<li>apply a gaussian filter</li>
+<li>Remote data available at TODO</li>
+<li>Parallelise operations over chunks for large data
+<ul>
+<li>Hard: what if you need info from more than one chunk?</li>
 </ul></li>
+</ul></li>
+<li>Benchmark-related
+<ul>
+<li>run benchmarks on your own data</li>
+<li>vary chunksize/compression level etc.</li>
+</ul></li>
+<li>Skeletal Biology
+<ul>
+<li>segment chunkwise into spongy (&lt;50% bone per chunk) and compact (&gt;50% bone per chunk)</li>
+</ul></li>
+<li>Hard: can we get the tutorial to run with zarr3 and latest OME-zarr</li>
+<li>Own ideas?!</li>
 </ul>
 </section></section>
 <section id="lunch-break" class="title-slide slide level1 center">
-<h1>lunch break!</h1>
+<h1>Lunch break!</h1>
 
 </section>
 
