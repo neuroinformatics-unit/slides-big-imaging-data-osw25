@@ -422,7 +422,7 @@ Adds
   * `zarr` v2 versus v3 
   * which tools are compatible with which?!
 * [sharding](https://zarr.readthedocs.io/en/latest/user-guide/performance.html#sharding)
-* filesystems don't like many small files!
+  * filesystems don't like many small files!
 
 ## Plan
 
@@ -433,7 +433,8 @@ Adds
 ## Default adventure
 
 * convert a tiff stack to OME zarr
-* apply a threshold to it, chunk by chunk
+* apply a threshold to it
+* colour thresholded data chunk by chunk
 
 ## Self-paced learning
 
@@ -447,8 +448,7 @@ Adds
 * bioio + reader plugins
 * run on small data first
 * ask for help
-You may additionally need a reader plugin for your specific image data, e.g.
-
+You may additionally need a reader plugin for your specific image data, e.g. if you have `sldy` images
 
 ```bash
 pip install bioio_sldy
@@ -498,9 +498,8 @@ Find these slides at <https://neuroinformatics.dev/slides-big-imaging-data-osw25
 
 ## Default data
 
-## Inspecting your image
-
-## Converting your image to OME-zarr
+![](img/mouse-tibia.png)
+"The colourful mouse bone challenge"
 
 ## The colourful mouse bone challenge
 
@@ -508,20 +507,21 @@ Find these slides at <https://neuroinformatics.dev/slides-big-imaging-data-osw25
 Label a mouse tibia by chunks
 
 
-## ideas
+## Ideas {.smaller}
 
 * Adapt code to visualise/threshold remote data
   * Remote data available at TODO
 * Parallelise iteration over chunks
-  * hard: what if you need info from more than one chunk?
+  * Hard: what if you need info from more than one chunk?
 * Benchmark-related
   * run benchmarks on your own data
   * vary chunksize/compression level etc.
 * Skeletal Biology
   * segment chunkwise into spongy (<50% bone per chunk) and compact (>50% bone per chunk)
+* Hard: can we get the tutorial to run with zarr3 and latest OME-zarr
 * Own ideas?!
 
-# lunch break!
+# Lunch break!
 
 
 # What next for community and careers in bioimage analysis?
