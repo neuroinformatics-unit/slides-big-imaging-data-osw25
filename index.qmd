@@ -224,10 +224,13 @@ OME-zarr
 
 ## Chunked storage
 
-`zarr` is a specification for how an array should be stored into chunks.
+`zarr` is a specification for how a large N-dimensional arrays should be stored.
+
+{.incremet}
 
 ## Lots of choices
 
+:::{.incremental}
 * where should we store the data?
   * on the cloud or locally?
 * how big should we make the chunks?
@@ -240,6 +243,8 @@ Criteria:
 * size on disk
 
 Luckily, Ruaridh and Kimberly can help!
+:::
+
 
 ## Benchmarking zarr{.smaller}
 
@@ -444,15 +449,20 @@ Adds
 * encouraged to get involved with others
   * lots of diverse expertise in the room
 
-## Some tips
-* bioio + reader plugins
+## Some tips {.smaller}
 * run on small data first
+* think about 
+  * do you need to update array contents?
+  * are you overwriting existing contents?
+  * 
 * ask for help
-You may additionally need a reader plugin for your specific image data, e.g. if you have `sldy` images
 
+:::aside
+You may additionally need a reader plugin for your specific image data, e.g. if you have `sldy` images
 ```bash
 pip install bioio_sldy
 ```
+:::
 
 ## A warning
 Run on small data first
@@ -479,7 +489,7 @@ Run on small data first
 On an Ubuntu desktop with 68GB memory.
 :::
 
-## Installation
+## Installation {.smaller}
 
 ```bash
 conda create -n big-imaging-data-tutorial python=3.13 -y
@@ -494,7 +504,22 @@ pip install "matplotlib" "jupyterlab" "numcodecs==0.15.1" "numpy==2.3.2" "zarr==
 pip install "napari[all]" "napari-ome-zarr"
 ```
 
+::: aside
+Versions roughly match the [HEFTIE textbook](https://heftie-textbook.readthedocs.io/en/latest/).
 Find these slides at <https://neuroinformatics.dev/slides-big-imaging-data-osw25/>.
+::: 
+
+## Installation {.smaller}
+
+```bash
+git clone https://github.com/neuroinformatics-unit/slides-big-imaging-data-osw25.git
+```
+or download from <https://github.com/neuroinformatics-unit/slides-big-imaging-data-osw25/blob/main/tutorials/>
+and then run
+```bash
+jupyter lab
+```
+from the `tutorials/` folder in your terminal.
 
 ## Default data
 
@@ -511,8 +536,8 @@ Label a mouse tibia by chunks
 
 * Adapt code to visualise/threshold remote data
   * Remote data available at TODO
-* Parallelise iteration over chunks
-  * Hard: what if you need info from more than one chunk?
+  * Parallelise operations over chunks for large data
+    * Hard: what if you need info from more than one chunk?
 * Benchmark-related
   * run benchmarks on your own data
   * vary chunksize/compression level etc.
