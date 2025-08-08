@@ -488,7 +488,10 @@ conda create -n big-imaging-data-tutorial python=3.13 -y
 conda activate big-imaging-data-tutorial
 ```
 ```bash
-pip install "matplotlib" "jupyterlab" "numcodecs==0.15.1" "numpy==2.3.2" "zarr==2.18.7" "pydantic-zarr==0.7.0" "ome-zarr-models==0.1.10" "joblib==1.5.1" "tifffile[zarr]<2025.5.21" "bioio" "bioio-tifffile" "napari[all]" "napari-ome-zarr"
+pip install "matplotlib" "jupyterlab" "numcodecs==0.15.1" "numpy==2.3.2" "zarr==2.18.7" "pydantic-zarr==0.7.0" "ome-zarr-models==0.1.10" "joblib==1.5.1" "tifffile[zarr]<2025.5.21" "bioio" "bioio-tifffile"
+```
+```bash
+pip install "napari[all]" "napari-ome-zarr"
 ```
 
 Find these slides at <https://neuroinformatics.dev/slides-big-imaging-data-osw25/>.
