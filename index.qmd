@@ -365,7 +365,7 @@ Tensorstore is a lot faster at reading data than zarr-python.
 Large chunks compress worse + increase memory usage
 :::
 ::: {.column}
-![](img/chunk-size-1.png){height=450}
+![](img/chunk-size-1-cropped.png)
 :::
 ::::
 
