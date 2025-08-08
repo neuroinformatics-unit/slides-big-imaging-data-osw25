@@ -251,6 +251,12 @@ OME-zarr
 * how big should we make the chunks?
 * how should we compress each chunk?
 
+Criteria:
+
+* reading speed!
+  * writing speed maybe less important
+* size on disk
+
 Luckily, Ruaridh and Kimberly can help!
 
 ## Benchmarking zarr{.smaller}
@@ -267,7 +273,7 @@ Luckily, Ruaridh and Kimberly can help!
 ::: {.column}
 * 3 images: heart (335 MB), dense segmentation, sparse segmentation
 
-  * Heart: HiP-CT scan of a heart from the Human Organ Atlas
+  * **Heart: HiP-CT scan of a heart from the Human Organ Atlas**
   * Dense: segmented neurons from electron microscopy
   * Sparse: A few select segmented neurons from electron microscopy
 
@@ -275,19 +281,55 @@ Luckily, Ruaridh and Kimberly can help!
 
 * All sized 806 x 629 x 629
 
-* All uint16
+* All 16-bit unsigned integer
+
 :::
 ::: {.column}
-![](img/heart.png)
+![](img/heart.png){height=450}
 :::
 ::::
 
+## Benchmarking zarr{.smaller}
+
 :::: {.columns}
-::: {.column width="50%"}
-![](img/dense.png)
+::: {.column}
+* 3 images: heart (335 MB), dense segmentation, sparse segmentation
+
+  * Heart: HiP-CT scan of a heart from the Human Organ Atlas
+  * **Dense: segmented neurons from electron microscopy**
+  * Sparse: A few select segmented neurons from electron microscopy
+
+* [Images used are on zenodo](https://zenodo.org/records/15691492)
+
+* All sized 806 x 629 x 629
+
+* All 16-bit unsigned integer
+
 :::
-::: {.column width="50%"}
-![](img/sparse.png)
+::: {.column}
+![](img/dense.png){height=450}
+:::
+::::
+
+## Benchmarking zarr{.smaller}
+
+:::: {.columns}
+::: {.column}
+* 3 images: heart (335 MB), dense segmentation, sparse segmentation
+
+  * Heart: HiP-CT scan of a heart from the Human Organ Atlas
+  * Dense: segmented neurons from electron microscopy
+  * **Sparse: A few select segmented neurons from electron microscopy**
+
+* [Images used are on zenodo](https://zenodo.org/records/15691492)
+
+* All sized 806 x 629 x 629
+
+* All 16-bit unsigned integer
+
+:::
+::: {.column}
+![](img/sparse.png){height=450}
 :::
 ::::
 
@@ -306,55 +348,28 @@ Choice of compression library affects write time + higher compression levels tak
 ## Benchmarking zarr
 
 :::: {.columns}
-::: {.column width="33%"}
-![](img/benchmarks-1.png)
-:::
-::: {.column width="33%"}
-![](img/benchmarks-5.png)
-:::
-::: {.column width="33%"}
-![](img/benchmarks-6.png)
-:::
-::::
-
-Tensorstore is a lot faster at reading data than zarr-python.
-
-## Benchmarking zarr
-
-TODO Does this look better as a layout
-
-:::: {.columns}
-::: {.column}
-![](img/benchmarks-1.png)
-:::
-::::
-
-:::: {.columns}
-::: {.column}
-![](img/benchmarks-5.png)
-:::
-::::
-
-:::: {.columns}
 ::: {.column}
 ![](img/benchmarks-6.png)
+![](img/benchmarks-1.png)
+:::
+::: {.column}
+![](img/benchmarks-5.png)
+Tensorstore is a lot faster at reading data than zarr-python.
 :::
 ::::
-
-
-Tensorstore is a lot faster at reading data than zarr-python.
 
 ## Benchmarking zarr
 
 :::: {.columns}
 ::: {.column}
-* Larger chunks are faster to read/write overall (+ make fewer files)
-* Large chunks compress worse + increase memory usage
+Large chunks compress worse + increase memory usage
 :::
 ::: {.column}
-![](img/chunk-size-1.png)
+![](img/chunk-size-1.png){height=450}
 :::
 ::::
+
+## Benchmarking zarr
 
 :::: {.columns}
 ::: {.column width="50%"}
@@ -364,10 +379,10 @@ Tensorstore is a lot faster at reading data than zarr-python.
 ![](img/chunk-size-3.png)
 :::
 ::::
+Larger chunks are faster to read/write overall (+ make fewer files)
 
 
-
-## Benchmarking zarr
+## Benchmarking zarr {.smaller}
 
 :::: {.columns}
 ::: {.column width="50%"}
@@ -386,7 +401,7 @@ Compression ratio vs write time plot for heart image (left) and dense segmentati
 
 ## Benchmarking zarr conclusions {.smaller}
 
-Approximately "optimal" choices
+Approximately "optimal" choices*
 
 * Use `tensorstore` library for fastest read/write
 * `blosc-zstd` is a good default compressor
@@ -396,7 +411,7 @@ Approximately "optimal" choices
 * It's a balance! People often use 64x64x64 or 128x128x128
 
 ::: aside
-This could be different for different data! Worth testing some small samples of your own data with different settings
+*This could be different for different data! Worth testing some small samples of your own data with different settings
 :::
 
 ## Pyramidal file formats
