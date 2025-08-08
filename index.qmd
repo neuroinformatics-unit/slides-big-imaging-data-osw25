@@ -255,7 +255,41 @@ Luckily, Ruaridh and Kimberly can help!
 
 ## Benchmarking zarr{.smaller}
 
-TODO: explain benchmarking setup: what image? how big was the image? how was benchmarking performed?
+* [Open-source zarr-benchmarks repository](https://github.com/HEFTIEProject/zarr-benchmarks) which is freely available
+
+* Python based using pytest-benchmark
+
+* SOON - a report summarising findings with plots, but still in progress
+
+## Benchmarking zarr{.smaller}
+
+:::: {.columns}
+::: {.column}
+* 3 images: heart (335 MB), dense segmentation, sparse segmentation
+
+  * Heart: HiP-CT scan of a heart from the Human Organ Atlas
+  * Dense: segmented neurons from electron microscopy
+  * Sparse: A few select segmented neurons from electron microscopy
+
+* [Images used are on zenodo](https://zenodo.org/records/15691492)
+
+* All sized 806 x 629 x 629
+
+* All uint16
+:::
+::: {.column}
+![](img/heart.png)
+:::
+::::
+
+:::: {.columns}
+::: {.column width="50%"}
+![](img/dense.png)
+:::
+::: {.column width="50%"}
+![](img/sparse.png)
+:::
+::::
 
 ## Benchmarking zarr{.smaller}
 
@@ -267,37 +301,102 @@ Choice of compression library affects read time more than compression level.
 
 ![](img/benchmarks-2.png)
 
-Choice of compression library affects write time more than compression level.
+Choice of compression library affects write time + higher compression levels take longer to write.
 
 ## Benchmarking zarr
 
-TODO: split image into 3, and put in separate columns
-
 :::: {.columns}
-::: {.column}
-Tensorstore is a lot faster at reading data than zarr-python.
+::: {.column width="33%"}
+![](img/benchmarks-1.png)
 :::
-::: {.column}
-![](img/benchmarks-3.png)
+::: {.column width="33%"}
+![](img/benchmarks-5.png)
+:::
+::: {.column width="33%"}
+![](img/benchmarks-6.png)
 :::
 ::::
 
+Tensorstore is a lot faster at reading data than zarr-python.
+
 ## Benchmarking zarr
 
-![](img/benchmarks-4.png){height=450}
+TODO Does this look better as a layout
 
-Larger chunk sizes reduce reading time (but will increase memory usage!)
+:::: {.columns}
+::: {.column}
+![](img/benchmarks-1.png)
+:::
+::::
+
+:::: {.columns}
+::: {.column}
+![](img/benchmarks-5.png)
+:::
+::::
+
+:::: {.columns}
+::: {.column}
+![](img/benchmarks-6.png)
+:::
+::::
+
+
+Tensorstore is a lot faster at reading data than zarr-python.
+
+## Benchmarking zarr
+
+:::: {.columns}
+::: {.column}
+* Larger chunks are faster to read/write overall (+ make fewer files)
+* Large chunks compress worse + increase memory usage
+:::
+::: {.column}
+![](img/chunk-size-1.png)
+:::
+::::
+
+:::: {.columns}
+::: {.column width="50%"}
+![](img/chunk-size-2.png)
+:::
+::: {.column width="50%"}
+![](img/chunk-size-3.png)
+:::
+::::
+
+
+
+## Benchmarking zarr
+
+:::: {.columns}
+::: {.column width="50%"}
+![](img/benchmarks-2.png)
+:::
+::: {.column width="50%"}
+![](img/benchmarks-7.png)
+:::
+::::
+
+Compression ratio vs write time plot for heart image (left) and dense segmentation (right)
+
+* Segmentations normally compress a lot more (see compression ratio, y axis much higher values)
+
+* You may have to use different settings depending on your image.
 
 ## Benchmarking zarr conclusions {.smaller}
 
 Approximately "optimal" choices
 
-* Use `tensorstore` library to read data
-* Split it into chunks of 100,100,100
-* Compress it with `blosc-zstd` at level `12`
+* Use `tensorstore` library for fastest read/write
+* `blosc-zstd` is a good default compressor
+* Use a high compression level to get the smallest file size (usually means longer write times, but not much effect on read time)
+* Smaller chunks = smaller overall file size + less memory usage
+* Larger chunks = faster read/write times + fewer files
+* It's a balance! People often use 64x64x64 or 128x128x128
 
 ::: aside
-This could be different for different data!
+This could be different for different data! Worth testing some small samples of your own data with different settings
 :::
 
 ## Pyramidal file formats
