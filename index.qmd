@@ -58,7 +58,7 @@ format:
 ## Schedule {.smaller}
 AM (technical)
 
-* Intro to Big Imaging Data
+* Intro to Big Imaging Data concepts
   * Bonus content: benchmarks! 
 * Handling big imaging data with Python
   * self-paced, collaborative learning
@@ -85,6 +85,7 @@ Find these slides at <https://neuroinformatics.dev/slides-big-imaging-data-osw25
 ::::
 
 Thank you to HEFTIE textbook authors: David Stansby, Ruaridh Gollifer and Kimberly Meechan!
+
 * Hands-on materials based on the [HEFTIE textbook](https://heftie-textbook.readthedocs.io/en/latest/)
 * Introduction based [on slides by Josh Moore](https://www.ebi.ac.uk/training/events/towards-open-and-standardised-imaging-data-introduction-bio-formats-ome-tiff-and-ome-zarr/), the [HEFTIE textbook](https://heftie-textbook.readthedocs.io/en/latest/), and slides by textbook authors.
 * Has really helped me get up-to-speed!
@@ -134,18 +135,28 @@ More on community in the afternoon
 Conversion via `bioformats` also can be slow
 :::
 
-## Solution (spoiler!)
+## Solution: OME-zarr (spoiler!)
 
-OME-zarr
-
+:::: {.columns}
+::: {.column}
 ::: {.incremental}
 * community support[^1]
+  * helps with standardisation
 * uses "chunked storage"
 * uses "pyramidal file format"
+  * help with data size
 ::: 
+:::
+
+::: {.column}
+![](img/elmer.png){width=300}
+:::
+
+::::
+
+Let's dig deeper
 
 [^1]: Moore, J., Basurto-Lozada, D., Besson, S. et al. OME-Zarr: a cloud-optimized bioimaging file format with international community support. Histochem Cell Biol 160, 223–251 (2023). <https://doi.org/10.1007/s00418-023-02209-1>
-
 
 # Chunked storage and pyramidal file formats
 
@@ -207,7 +218,7 @@ OME-zarr
 ::::
 
 * Choose chunk size when we create the overall image "file"
-* Save each chunk into a separate file
+* Save each chunk into a separate, compressed, file
 
 
 ## Chunked storage {.smaller}
@@ -414,9 +425,7 @@ Approximately "optimal" choices*
 * Larger chunks = faster read/write times + fewer files
 * It's a balance! People often use 64x64x64 or 128x128x128
 
-::: aside
-*This is different for different data! Worth testing some small samples of your own data with different settings
-:::
+This is different for different data! Worth testing some small samples of your own data with different settings
 
 ## Pyramidal file formats
 
@@ -430,9 +439,9 @@ Idea: multiscale images!
 
 ## OME zarr
 
-:::: {.column}
+:::: {.columns}
 ::: {.column}
-Even better idea: multiscale images [follow a standard.](https://ngff.openmicroscopy.org/0.4/index.html#image-layout).
+Even better idea: multiscale images that [follow a standard](https://ngff.openmicroscopy.org/0.4/index.html#image-layout).
 :::
 ::: {.column}
 ![](img/pyramid-levels.png){height=450}
@@ -455,9 +464,33 @@ Even better idea: multiscale images [follow a standard.](https://ngff.openmicros
 
 ## Default adventure
 
+:::: {.columns}
+::: {.column}
 * convert a tiff stack to OME zarr
 * apply a threshold to it
 * colour thresholded data chunk by chunk
+:::
+::: {.column}
+![](img/mouse-tibia.png)
+:::
+::::
+
+"The colourful mouse bone challenge"
+
+## The colourful mouse bone challenge
+
+:::: {.columns}
+::: {.column}
+* convert a tiff stack to OME zarr
+* apply a threshold to it
+* colour thresholded data chunk by chunk
+:::
+::: {.column}
+![](img/colourful-mouse-tibia.png)
+:::
+::::
+
+Label a mouse tibia by chunks
 
 ## Self-paced learning
 
@@ -472,18 +505,17 @@ Even better idea: multiscale images [follow a standard.](https://ngff.openmicros
 * think about 
   * do you need to update array contents?
   * are you overwriting existing contents?
-  * 
+  * check `.zattr` and `.zgroup` files
+  * check folders and subfolder
 * ask for help
 
-:::aside
 You may additionally need a reader plugin for your specific image data, e.g. if you have `sldy` images
 ```bash
 pip install bioio_sldy
 ```
-:::
 
 ## A warning
-Run on small data first
+Run on small data first!
 
 :::: {.columns}
 ::: {.column}
@@ -495,16 +527,16 @@ Run on small data first
 ::::
 
 ::: aside
-On an Ubuntu desktop with 68GB memory.
+On an Ubuntu desktop with 67GB memory.
 :::
 
-## A warning
+## A warning!
 Run on small data first
 
 ![](img/vscode-crash.png){fig-align="center"}
 
 ::: aside
-On an Ubuntu desktop with 68GB memory.
+On an Ubuntu desktop with 67GB memory.
 :::
 
 ## Installation {.smaller}
@@ -523,7 +555,7 @@ pip install "napari[all]" "napari-ome-zarr"
 ```
 
 ::: aside
-Versions roughly match the [HEFTIE textbook](https://heftie-textbook.readthedocs.io/en/latest/).
+Version of dependencies roughly match the [HEFTIE textbook](https://heftie-textbook.readthedocs.io/en/latest/).
 Find these slides at <https://neuroinformatics.dev/slides-big-imaging-data-osw25/>.
 ::: 
 
@@ -539,21 +571,11 @@ jupyter lab
 ```
 from the `tutorials/` folder in your terminal.
 
-## Default data
-
-![](img/mouse-tibia.png)
-"The colourful mouse bone challenge"
-
-## The colourful mouse bone challenge
-
-![](img/colourful-mouse-tibia.png)
-Label a mouse tibia by chunks
-
 
 ## Ideas {.smaller}
 
 * Adapt code to visualise/threshold remote data
-  * Remote data available at TODO
+  * Remote data available at <https://idr.github.io/ome-ngff-samples/>
   * Parallelise operations over chunks for large data
     * Hard: what if you need info from more than one chunk?
 * Benchmark-related
@@ -590,6 +612,8 @@ e.g. the IARPA MICrONS dataset
 ## Postdoc careers {.smaller}
 
 ![](img/paucity-of-postdocs.png){width=700 fig-align=center}
+
+## Postdoc careers {.smaller}
 
 > Madeline Lancaster, a neuroscientist at the University of Cambridge, UK, can relate to that. In July, she received a total of 36 applications for a postdoctoral position in her laboratory, many fewer than the couple of hundred that she originally expected. “I had been nervous that I wouldn’t be able to go through all of the applications,” she says. Those 36 didn’t lead to a single appointment. “I still have not filled the position,” she says. “There seems to be lots of competition for strong candidates.”
 [^2]
@@ -633,32 +657,11 @@ e.g. the IARPA MICrONS dataset
 - CBIAS 2023
 - GloBIAS 2024
 - CBIAS 2024 🧑🏻‍🎓
-- (CBIAS 2025 - co-organiser)
+- [CBIAS 2025 - co-organiser](https://www.crick.ac.uk/whats-on/crick-bioimage-analysis-symposium-2025)
 ::::
 
 :::
 
-## Bioimage Analyst
-
-TODO: define 
-
-## GloBIAS survey 2024 {.smaller}
-
-![](img/supplementary-figure-globias-survey.png){width=900 fig-align=center}
-
-From ["GloBIAS: strengthening the foundations of BioImage Analysis"; AA Corbat, CG Walther, LR de la Ballina et al, arXiv preprint arXiv:2507.06407, 2025](https://arxiv.org/abs/2507.06407v1)
-
-## Careers paths for digital research technology professionals (RTPs) at UCL {.smaller}
-
-Note that some people are de-facto RTPs, and RTPs have existed since before they were labelled.
-
-::: aside
-* Langridge, Chris; Chisholm, Louise (2024). ARC Professional Research Investment Strategy Managers Job Description Framework. University College London. Model. https://doi.org/10.5522/04/25196612.v2
-* Langridge, Chris (2024). Job Descriptions and Framework for Centre for Advanced Research Computing (ARC) Research Software Engineer. University College London. Model. https://doi.org/10.5522/04/25196066.v1
-* Langridge, Chris (2024). Job Descriptions and Framework for Centre for Advanced Research Computing (ARC) Research Data Steward. University College London. Model. https://doi.org/10.5522/04/25196918.v1
-* Langridge, Chris (2024). Job Descriptions and Framework for Centre for Advanced Research Computing (ARC) Research Infastructure Developer. University College London. Model. https://doi.org/10.5522/04/25197152.v1
-* Langridge, Chris (2024). Job Descriptions and Framework for Centre for Advanced Research Computing (ARC) Research Data Scientists. University College London. Model. https://doi.org/10.5522/04/25197182.v1
-:::
 
 ## My SSI fellowship
 
@@ -673,26 +676,144 @@ A bridge between Bioimaging and Research Software Engineering
 
 ## Why build the bridge
 
-* advocacy toward univerisity leadership/policy makers
+* coordinate advocacy toward university leadership/policy makers/funders
 * best practice knowledge exchange
-* co-design
+* avoid reinventing the career path wheel
+* involve more voices in co-design of careers and community
+
+
+## RTP career paths at UCL {.smaller}
+
+RTP="(digital) Research Technology Professional"
+
+The job framework, consists of several individual job descriptions ranging from:
+
+- Assistant Research Software Engineer (UCL Grade 6)
+- Research Software Engineer (UCL Grade 7)
+- Senior Research Software Engineer (UCL Grade 8)
+- Principal Research Software Engineer (UCL Grade 9)
+- Head Research Software Engineer (UCL Grade 10)
+ 
+The framework allows clear definition and development of each role,...
+
+::: aside
+[Langridge + Chisholm (2024). ARC Professional Research Investment Strategy Managers Job Description Framework.](https://doi.org/10.5522/04/25196612.v2)
+
+[Langridge (2024). Job Descriptions and Framework for ARC Research Software Engineer.](https://doi.org/10.5522/04/25196066.v1)
+
+[Langridge (2024). Job Descriptions and Framework for ARC Research Data Steward](https://doi.org/10.5522/04/25196918.v1)
+
+[Langridge (2024). Job Descriptions and Framework for ARC Research Infastructure Developer](https://doi.org/10.5522/04/25197152.v1)
+
+[Langridge (2024). Job Descriptions and Framework for ARC Research Data Scientists](https://doi.org/10.5522/04/25197182.v1)
+:::
+
+## RTP careers at UCL {.smaller}
+
+:::: {.columns}
+::: {.column}
+>  a mixture of service delivery, research, innovation, and teaching activities according to
+your own preferences and skills, and appropriate to your level of seniority.
+:::
+::: {.column}
+> Research Software Developers, Research Infrastructure Developers, Research Data Stewards, and Research Data Scientists – knowing that these are fluid categories, and welcome those who cross the boundaries between these.
+:::
+::::
+
+::: aside
+[Langridge + Chisholm (2024). ARC Professional Research Investment Strategy Managers Job Description Framework.](https://doi.org/10.5522/04/25196612.v2)
+
+[Langridge (2024). Job Descriptions and Framework for ARC Research Software Engineer.](https://doi.org/10.5522/04/25196066.v1)
+
+[Langridge (2024). Job Descriptions and Framework for ARC Research Data Steward](https://doi.org/10.5522/04/25196918.v1)
+
+[Langridge (2024). Job Descriptions and Framework for ARC Research Infastructure Developer](https://doi.org/10.5522/04/25197152.v1)
+
+[Langridge (2024). Job Descriptions and Framework for ARC Research Data Scientists](https://doi.org/10.5522/04/25197182.v1)
+:::
+
+
+
+## [Bioimage Analyst careers](https://eubias.org/NEUBIAS/venue/global-planning/) {.smaller}
+
+> We consider that bioimaging involves four different types of expertise.
+>
+> * Life Scientists (e.g. Biologists)  ...
+> * Instrumentalists (e.g. Microscopists) ...
+> * Developers (e.g. Image processing algorithm developers, programmers and computer scientists) ...
+> * **Bioimage analysts are a new type of experts in BioImaging, they select appropriate image processing algorithms and their implementations, and assemble them for conducting practical Bioimage Analysis.**
+>
+>One of the aim of NEUBIAS is to explicitly promote the mutual communication between these four communities of experts and to establish the role of Bioimage Analysts in Life Science
+
+Are Bioimage Analysts a specialist/domain-specific RTP?
+
+## GloBIAS survey 2024 {.smaller}
+
+![](img/supplementary-figure-globias-survey.png){width=900 fig-align=center}
+
+From ["GloBIAS: strengthening the foundations of BioImage Analysis"; AA Corbat, CG Walther, LR de la Ballina et al, arXiv preprint arXiv:2507.06407, 2025](https://arxiv.org/abs/2507.06407v1)
+
+
+## How?
+
+"Speedblogging" - an "evolved" way of writing up discussion notes from small groups
+* Split up in small groups and discuss
+* Write up notes together
 
 ## How?
 
 Speedblogging
 * choose question of interest
 * self-organise into groups
+* assign a chair and a scribe
+  * chair ensures everyone gets opportunity to contribute
+  * scribe takes notes
+  
 
 ## Speedblogging tips
-* assign a chair and a scribe
+
+* approximately half discussion/half writing
+* work together
+  * parallelise writing across sections 
+  * review each others writing
+  * some research, some writing
+
+:::
+https://www.software.ac.uk/guide/speed-blogging-and-tips-writing-speed-blog-post
+:::
+
+
+## Speedblogging template: Five important things {.smaller}
+
+* Approximately half discussion/half writing
+* Work together
+  * Parallelise writing across sections 
+  * Review each others writing
+  * Some research, some writing
+* Limit the scope
+
+:::
+https://www.software.ac.uk/guide/speed-blogging-and-tips-writing-speed-blog-post
+:::
+
+## Speedblogging template: Summary and related areas {.smaller}
+
+These could include all or some of:
+* Why is this issue important?
+* Summary of the discussion topic
+* Recommendations
+* Other significant points outside the main topic of discussion
+:::
+https://www.software.ac.uk/guide/speed-blogging-and-tips-writing-speed-blog-post
+:::
 
 ## Speedblogging topics
 
-TODO: link each of these topics to a google doc
-
-* What would a bioimage analyst career path look like?
-* How do we bridge the gap between generalist and domain-specific technical communities
-* Bioimage analyst careers: what has been achieved/what is the next priority
-* Open source in bioimage analysis
+* [What would a bioimage analyst career path look like?](https://docs.google.com/document/d/1MiX2Oh7WzejUIADmIgD3kl56p_poIPLg7i6WFJdjhUs/edit?usp=sharing)
+* [How do we bridge the gap between generalist and domain-specific technical communities](https://docs.google.com/document/d/1vz4hEF4IRWIG-3cxrCe4axA_70PKJIS8eEKu5dThb4w/edit?usp=sharing)
+* [Bioimage analyst careers: what has been achieved/what is the next priority](https://docs.google.com/document/d/1YRqN7c5cwL4pVS4RsMRAlbGH830mmuWo3akqqaytwA0/edit?usp=sharing)
+* [Open source in bioimage analysis](https://docs.google.com/document/d/1E75-oyvitgmQ3lRhOCrjpGR5JuOEr7b8Mcjn0R4PIwg/edit?usp=sharing)
+* [open topic 1](https://docs.google.com/document/d/12tjIvs0F9cotkGP374YltyLBxOWO_5-6NLePJvSchpM/edit?usp=sharing)
+* [open topic 2](https://docs.google.com/document/d/14dlSf0Xrc8rsW-Hru-FewfN9O9Iacw2x30VTFQwDOPo/edit?usp=sharing)
 
 
