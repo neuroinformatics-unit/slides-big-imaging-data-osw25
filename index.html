@@ -226,7 +226,7 @@ Alessandro Felder, Igor Tatarnikov, Ruaridh Gollifer, Kimberly Meechan
 <h2>Schedule</h2>
 <p>AM (technical)</p>
 <ul>
-<li>Intro to Big Imaging Data
+<li>Intro to Big Imaging Data concepts
 <ul>
 <li>Bonus content: benchmarks!</li>
 </ul></li>
@@ -252,7 +252,12 @@ Alessandro Felder, Igor Tatarnikov, Ruaridh Gollifer, Kimberly Meechan
 </div><div class="column" style="width:33%;">
 <p><img data-src="img/kimberly.png" width="250"></p>
 </div></div>
-<p>Thank you to HEFTIE textbook authors: David Stansby, Ruaridh Gollifer and Kimberly Meechan! * Hands-on materials based on the <a href="https://heftie-textbook.readthedocs.io/en/latest/">HEFTIE textbook</a> * Introduction based <a href="https://www.ebi.ac.uk/training/events/towards-open-and-standardised-imaging-data-introduction-bio-formats-ome-tiff-and-ome-zarr/">on slides by Josh Moore</a>, the <a href="https://heftie-textbook.readthedocs.io/en/latest/">HEFTIE textbook</a>, and slides by textbook authors. * Has really helped me get up-to-speed!</p>
+<p>Thank you to HEFTIE textbook authors: David Stansby, Ruaridh Gollifer and Kimberly Meechan!</p>
+<ul>
+<li>Hands-on materials based on the <a href="https://heftie-textbook.readthedocs.io/en/latest/">HEFTIE textbook</a></li>
+<li>Introduction based <a href="https://www.ebi.ac.uk/training/events/towards-open-and-standardised-imaging-data-introduction-bio-formats-ome-tiff-and-ome-zarr/">on slides by Josh Moore</a>, the <a href="https://heftie-textbook.readthedocs.io/en/latest/">HEFTIE textbook</a>, and slides by textbook authors.</li>
+<li>Has really helped me get up-to-speed!</li>
+</ul>
 </section>
 <section id="bioimaging-formats-today" class="slide level2">
 <h2>Bioimaging formats today</h2>
@@ -304,14 +309,25 @@ Alessandro Felder, Igor Tatarnikov, Ruaridh Gollifer, Kimberly Meechan
 <aside><div>
 <p>Conversion via <code>bioformats</code> also can be slow</p>
 </div></aside></section>
-<section id="solution-spoiler" class="slide level2 scrollable">
-<h2>Solution (spoiler!)</h2>
-<p>OME-zarr</p>
+<section id="solution-ome-zarr-spoiler" class="slide level2 scrollable">
+<h2>Solution: OME-zarr (spoiler!)</h2>
+<div class="columns">
+<div class="column">
 <ul>
-<li class="fragment">community support<sup>1</sup></li>
+<li class="fragment">community support<sup>1</sup>
+<ul>
+<li class="fragment">helps with standardisation</li>
+</ul></li>
 <li class="fragment">uses “chunked storage”</li>
-<li class="fragment">uses “pyramidal file format”</li>
+<li class="fragment">uses “pyramidal file format”
+<ul>
+<li class="fragment">help with data size</li>
+</ul></li>
 </ul>
+</div><div class="column">
+<p><img data-src="img/elmer.png" width="300"></p>
+</div></div>
+<p>Let’s dig deeper</p>
 <aside><ol class="aside-footnotes"><li id="fn1"><p>Moore, J., Basurto-Lozada, D., Besson, S. et al.&nbsp;OME-Zarr: a cloud-optimized bioimaging file format with international community support. Histochem Cell Biol 160, 223–251 (2023). <a href="https://doi.org/10.1007/s00418-023-02209-1" class="uri">https://doi.org/10.1007/s00418-023-02209-1</a></p></li></ol></aside></section>
 <section>
 <section id="chunked-storage-and-pyramidal-file-formats" class="title-slide slide level1 center">
@@ -373,7 +389,7 @@ Alessandro Felder, Igor Tatarnikov, Ruaridh Gollifer, Kimberly Meechan
 </div></div>
 <ul>
 <li>Choose chunk size when we create the overall image “file”</li>
-<li>Save each chunk into a separate file</li>
+<li>Save each chunk into a separate, compressed, file</li>
 </ul>
 </section>
 <section id="chunked-storage-1" class="slide level2 smaller">
@@ -557,10 +573,8 @@ Alessandro Felder, Igor Tatarnikov, Ruaridh Gollifer, Kimberly Meechan
 <li>Larger chunks = faster read/write times + fewer files</li>
 <li>It’s a balance! People often use 64x64x64 or 128x128x128</li>
 </ul>
-
-<aside><div>
-<p>*This is different for different data! Worth testing some small samples of your own data with different settings</p>
-</div></aside></section>
+<p>This is different for different data! Worth testing some small samples of your own data with different settings</p>
+</section>
 <section id="pyramidal-file-formats" class="slide level2">
 <h2>Pyramidal file formats</h2>
 <p>Chunks help with reading subsets of pixels, but what it you want to view the image as whole?</p>
@@ -572,12 +586,13 @@ Alessandro Felder, Igor Tatarnikov, Ruaridh Gollifer, Kimberly Meechan
 </section>
 <section id="ome-zarr" class="slide level2">
 <h2>OME zarr</h2>
+<div class="columns">
 <div class="column">
-<div class="column">
-<p>Even better idea: multiscale images <a href="https://ngff.openmicroscopy.org/0.4/index.html#image-layout">follow a standard.</a>.</p>
+<p>Even better idea: multiscale images that <a href="https://ngff.openmicroscopy.org/0.4/index.html#image-layout">follow a standard</a>.</p>
 </div><div class="column">
 <p><img data-src="img/pyramid-levels.png" height="450"></p>
-</div></div></section>
+</div></div>
+</section>
 <section id="further-topics" class="slide level2 smaller">
 <h2>Further topics</h2>
 <ul>
@@ -604,11 +619,31 @@ Alessandro Felder, Igor Tatarnikov, Ruaridh Gollifer, Kimberly Meechan
 </section>
 <section id="default-adventure" class="slide level2">
 <h2>Default adventure</h2>
+<div class="columns">
+<div class="column">
 <ul>
 <li>convert a tiff stack to OME zarr</li>
 <li>apply a threshold to it</li>
 <li>colour thresholded data chunk by chunk</li>
 </ul>
+</div><div class="column">
+<p><img data-src="img/mouse-tibia.png"></p>
+</div></div>
+<p>“The colourful mouse bone challenge”</p>
+</section>
+<section id="the-colourful-mouse-bone-challenge" class="slide level2">
+<h2>The colourful mouse bone challenge</h2>
+<div class="columns">
+<div class="column">
+<ul>
+<li>convert a tiff stack to OME zarr</li>
+<li>apply a threshold to it</li>
+<li>colour thresholded data chunk by chunk</li>
+</ul>
+</div><div class="column">
+<p><img data-src="img/colourful-mouse-tibia.png"></p>
+</div></div>
+<p>Label a mouse tibia by chunks</p>
 </section>
 <section id="self-paced-learning" class="slide level2">
 <h2>Self-paced learning</h2>
@@ -632,18 +667,17 @@ Alessandro Felder, Igor Tatarnikov, Ruaridh Gollifer, Kimberly Meechan
 <ul>
 <li>do you need to update array contents?</li>
 <li>are you overwriting existing contents?</li>
-<li></li>
+<li>check <code>.zattr</code> and <code>.zgroup</code> files</li>
+<li>check folders and subfolder</li>
 </ul></li>
 <li>ask for help</li>
 </ul>
-
-<aside><div>
 <p>You may additionally need a reader plugin for your specific image data, e.g.&nbsp;if you have <code>sldy</code> images</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href=""></a><span class="ex">pip</span> install bioio_sldy</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div></aside></section>
+</section>
 <section id="a-warning" class="slide level2">
 <h2>A warning</h2>
-<p>Run on small data first</p>
+<p>Run on small data first!</p>
 <div class="columns">
 <div class="column">
 <p><img data-src="img/tibia-in-file-browser.png"></p>
@@ -652,10 +686,10 @@ Alessandro Felder, Igor Tatarnikov, Ruaridh Gollifer, Kimberly Meechan
 </div></div>
 
 <aside><div>
-<p>On an Ubuntu desktop with 68GB memory.</p>
+<p>On an Ubuntu desktop with 67GB memory.</p>
 </div></aside></section>
 <section id="a-warning-1" class="slide level2">
-<h2>A warning</h2>
+<h2>A warning!</h2>
 <p>Run on small data first</p>
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -664,7 +698,7 @@ Alessandro Felder, Igor Tatarnikov, Ruaridh Gollifer, Kimberly Meechan
 </div>
 
 <aside><div>
-<p>On an Ubuntu desktop with 68GB memory.</p>
+<p>On an Ubuntu desktop with 67GB memory.</p>
 </div></aside></section>
 <section id="installation" class="slide level2 smaller">
 <h2>Installation</h2>
@@ -674,7 +708,7 @@ Alessandro Felder, Igor Tatarnikov, Ruaridh Gollifer, Kimberly Meechan
 <div class="sourceCode" id="cb5"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href=""></a><span class="ex">pip</span> install <span class="st">"napari[all]"</span> <span class="st">"napari-ome-zarr"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 <aside><div>
-<p>Versions roughly match the <a href="https://heftie-textbook.readthedocs.io/en/latest/">HEFTIE textbook</a>. Find these slides at <a href="https://neuroinformatics.dev/slides-big-imaging-data-osw25/" class="uri">https://neuroinformatics.dev/slides-big-imaging-data-osw25/</a>.</p>
+<p>Version of dependencies roughly match the <a href="https://heftie-textbook.readthedocs.io/en/latest/">HEFTIE textbook</a>. Find these slides at <a href="https://neuroinformatics.dev/slides-big-imaging-data-osw25/" class="uri">https://neuroinformatics.dev/slides-big-imaging-data-osw25/</a>.</p>
 </div></aside></section>
 <section id="installation-1" class="slide level2 smaller">
 <h2>Installation</h2>
@@ -683,20 +717,12 @@ Alessandro Felder, Igor Tatarnikov, Ruaridh Gollifer, Kimberly Meechan
 <div class="sourceCode" id="cb7"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href=""></a><span class="ex">jupyter</span> lab</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>from the <code>tutorials/</code> folder in your terminal.</p>
 </section>
-<section id="default-data" class="slide level2">
-<h2>Default data</h2>
-<p><img data-src="img/mouse-tibia.png"> “The colourful mouse bone challenge”</p>
-</section>
-<section id="the-colourful-mouse-bone-challenge" class="slide level2">
-<h2>The colourful mouse bone challenge</h2>
-<p><img data-src="img/colourful-mouse-tibia.png"> Label a mouse tibia by chunks</p>
-</section>
 <section id="ideas" class="slide level2 smaller">
 <h2>Ideas</h2>
 <ul>
 <li>Adapt code to visualise/threshold remote data
 <ul>
-<li>Remote data available at TODO</li>
+<li>Remote data available at <a href="https://idr.github.io/ome-ngff-samples/" class="uri">https://idr.github.io/ome-ngff-samples/</a></li>
 <li>Parallelise operations over chunks for large data
 <ul>
 <li>Hard: what if you need info from more than one chunk?</li>
@@ -747,22 +773,21 @@ Alessandro Felder, Igor Tatarnikov, Ruaridh Gollifer, Kimberly Meechan
 <li>Collaboration and technical skills are essential!</li>
 </ul>
 </section>
-<section id="postdoc-careers" class="slide level2 smaller scrollable">
+<section id="postdoc-careers" class="slide level2 smaller">
 <h2>Postdoc careers</h2>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="img/paucity-of-postdocs.png" class="quarto-figure quarto-figure-center" width="700"></p>
-</figure>
-</div>
+
+<img data-src="img/paucity-of-postdocs.png" class="quarto-figure quarto-figure-center r-stretch" width="700"></section>
+<section id="postdoc-careers-1" class="slide level2 smaller scrollable">
+<h2>Postdoc careers</h2>
 <blockquote>
 <p>Madeline Lancaster, a neuroscientist at the University of Cambridge, UK, can relate to that. In July, she received a total of 36 applications for a postdoctoral position in her laboratory, many fewer than the couple of hundred that she originally expected. “I had been nervous that I wouldn’t be able to go through all of the applications,” she says. Those 36 didn’t lead to a single appointment. “I still have not filled the position,” she says. “There seems to be lots of competition for strong candidates.” <sup>1</sup></p>
 </blockquote>
 <aside><ol class="aside-footnotes"><li id="fn2"><p><a href="https://doi.org/10.1038/d41586-022-02781-x">Nature News article on postdoc careers in 2022</a></p></li></ol></aside></section>
-<section id="postdoc-careers-1" class="slide level2 smaller">
+<section id="postdoc-careers-2" class="slide level2 smaller">
 <h2>Postdoc careers</h2>
 
 <img data-src="img/nature-news-2025.png" class="quarto-figure quarto-figure-center r-stretch" width="700"></section>
-<section id="postdoc-careers-2" class="slide level2 smaller scrollable">
+<section id="postdoc-careers-3" class="slide level2 smaller scrollable">
 <h2>Postdoc careers</h2>
 <blockquote>
 <p>Those who stayed and landed a coveted faculty position were more likely to have had a highly cited paper, changed their research topic between their PhD and postdoc, or moved abroad after receiving their doctorate. <sup>1</sup></p>
@@ -792,32 +817,10 @@ Alessandro Felder, Igor Tatarnikov, Ruaridh Gollifer, Kimberly Meechan
 <li>CBIAS 2023</li>
 <li>GloBIAS 2024</li>
 <li>CBIAS 2024 🧑🏻‍🎓</li>
-<li>(CBIAS 2025 - co-organiser)</li>
+<li><a href="https://www.crick.ac.uk/whats-on/crick-bioimage-analysis-symposium-2025">CBIAS 2025 - co-organiser</a></li>
 </ul>
 </div></div>
 </section>
-<section id="bioimage-analyst" class="slide level2">
-<h2>Bioimage Analyst</h2>
-<p>TODO: define</p>
-</section>
-<section id="globias-survey-2024" class="slide level2 smaller">
-<h2>GloBIAS survey 2024</h2>
-
-<img data-src="img/supplementary-figure-globias-survey.png" class="quarto-figure quarto-figure-center r-stretch" width="900"><p>From <a href="https://arxiv.org/abs/2507.06407v1">“GloBIAS: strengthening the foundations of BioImage Analysis”; AA Corbat, CG Walther, LR de la Ballina et al, arXiv preprint arXiv:2507.06407, 2025</a></p>
-</section>
-<section id="careers-paths-for-digital-research-technology-professionals-rtps-at-ucl" class="slide level2 smaller">
-<h2>Careers paths for digital research technology professionals (RTPs) at UCL</h2>
-<p>Note that some people are de-facto RTPs, and RTPs have existed since before they were labelled.</p>
-
-<aside><div>
-<ul>
-<li>Langridge, Chris; Chisholm, Louise (2024). ARC Professional Research Investment Strategy Managers Job Description Framework. University College London. Model. https://doi.org/10.5522/04/25196612.v2</li>
-<li>Langridge, Chris (2024). Job Descriptions and Framework for Centre for Advanced Research Computing (ARC) Research Software Engineer. University College London. Model. https://doi.org/10.5522/04/25196066.v1</li>
-<li>Langridge, Chris (2024). Job Descriptions and Framework for Centre for Advanced Research Computing (ARC) Research Data Steward. University College London. Model. https://doi.org/10.5522/04/25196918.v1</li>
-<li>Langridge, Chris (2024). Job Descriptions and Framework for Centre for Advanced Research Computing (ARC) Research Infastructure Developer. University College London. Model. https://doi.org/10.5522/04/25197152.v1</li>
-<li>Langridge, Chris (2024). Job Descriptions and Framework for Centre for Advanced Research Computing (ARC) Research Data Scientists. University College London. Model. https://doi.org/10.5522/04/25197182.v1</li>
-</ul>
-</div></aside></section>
 <section id="my-ssi-fellowship" class="slide level2">
 <h2>My SSI fellowship</h2>
 <p><img data-src="img/ponte-dei-salti.jpg" class="quarto-figure quarto-figure-center" width="900"> Peter Sieling, CC BY 2.0.</p>
@@ -830,29 +833,119 @@ Alessandro Felder, Igor Tatarnikov, Ruaridh Gollifer, Kimberly Meechan
 <section id="why-build-the-bridge" class="slide level2">
 <h2>Why build the bridge</h2>
 <ul>
-<li>advocacy toward univerisity leadership/policy makers</li>
+<li>coordinate advocacy toward university leadership/policy makers/funders</li>
 <li>best practice knowledge exchange</li>
-<li>co-design</li>
+<li>avoid reinventing the career path wheel</li>
+<li>involve more voices in co-design of careers and community</li>
 </ul>
+</section>
+<section id="rtp-career-paths-at-ucl" class="slide level2 smaller">
+<h2>RTP career paths at UCL</h2>
+<p>RTP=“(digital) Research Technology Professional”</p>
+<p>The job framework, consists of several individual job descriptions ranging from:</p>
+<ul>
+<li>Assistant Research Software Engineer (UCL Grade 6)</li>
+<li>Research Software Engineer (UCL Grade 7)</li>
+<li>Senior Research Software Engineer (UCL Grade 8)</li>
+<li>Principal Research Software Engineer (UCL Grade 9)</li>
+<li>Head Research Software Engineer (UCL Grade 10)</li>
+</ul>
+<p>The framework allows clear definition and development of each role,…</p>
+
+<aside><div>
+<p><a href="https://doi.org/10.5522/04/25196612.v2">Langridge + Chisholm (2024). ARC Professional Research Investment Strategy Managers Job Description Framework.</a></p>
+<p><a href="https://doi.org/10.5522/04/25196066.v1">Langridge (2024). Job Descriptions and Framework for ARC Research Software Engineer.</a></p>
+<p><a href="https://doi.org/10.5522/04/25196918.v1">Langridge (2024). Job Descriptions and Framework for ARC Research Data Steward</a></p>
+<p><a href="https://doi.org/10.5522/04/25197152.v1">Langridge (2024). Job Descriptions and Framework for ARC Research Infastructure Developer</a></p>
+<p><a href="https://doi.org/10.5522/04/25197182.v1">Langridge (2024). Job Descriptions and Framework for ARC Research Data Scientists</a></p>
+</div></aside></section>
+<section id="rtp-careers-at-ucl" class="slide level2 smaller">
+<h2>RTP careers at UCL</h2>
+<div class="columns">
+<div class="column">
+<blockquote>
+<p>a mixture of service delivery, research, innovation, and teaching activities according to your own preferences and skills, and appropriate to your level of seniority.</p>
+</blockquote>
+</div><div class="column">
+<blockquote>
+<p>Research Software Developers, Research Infrastructure Developers, Research Data Stewards, and Research Data Scientists – knowing that these are fluid categories, and welcome those who cross the boundaries between these.</p>
+</blockquote>
+</div></div>
+
+<aside><div>
+<p><a href="https://doi.org/10.5522/04/25196612.v2">Langridge + Chisholm (2024). ARC Professional Research Investment Strategy Managers Job Description Framework.</a></p>
+<p><a href="https://doi.org/10.5522/04/25196066.v1">Langridge (2024). Job Descriptions and Framework for ARC Research Software Engineer.</a></p>
+<p><a href="https://doi.org/10.5522/04/25196918.v1">Langridge (2024). Job Descriptions and Framework for ARC Research Data Steward</a></p>
+<p><a href="https://doi.org/10.5522/04/25197152.v1">Langridge (2024). Job Descriptions and Framework for ARC Research Infastructure Developer</a></p>
+<p><a href="https://doi.org/10.5522/04/25197182.v1">Langridge (2024). Job Descriptions and Framework for ARC Research Data Scientists</a></p>
+</div></aside></section>
+<section id="bioimage-analyst-careers" class="slide level2 smaller">
+<h2><a href="https://eubias.org/NEUBIAS/venue/global-planning/">Bioimage Analyst careers</a></h2>
+<blockquote>
+<p>We consider that bioimaging involves four different types of expertise.</p>
+<ul>
+<li>Life Scientists (e.g.&nbsp;Biologists) …</li>
+<li>Instrumentalists (e.g.&nbsp;Microscopists) …</li>
+<li>Developers (e.g.&nbsp;Image processing algorithm developers, programmers and computer scientists) …</li>
+<li><strong>Bioimage analysts are a new type of experts in BioImaging, they select appropriate image processing algorithms and their implementations, and assemble them for conducting practical Bioimage Analysis.</strong></li>
+</ul>
+<p>One of the aim of NEUBIAS is to explicitly promote the mutual communication between these four communities of experts and to establish the role of Bioimage Analysts in Life Science</p>
+</blockquote>
+<p>Are Bioimage Analysts a specialist/domain-specific RTP?</p>
+</section>
+<section id="globias-survey-2024" class="slide level2 smaller">
+<h2>GloBIAS survey 2024</h2>
+
+<img data-src="img/supplementary-figure-globias-survey.png" class="quarto-figure quarto-figure-center r-stretch" width="900"><p>From <a href="https://arxiv.org/abs/2507.06407v1">“GloBIAS: strengthening the foundations of BioImage Analysis”; AA Corbat, CG Walther, LR de la Ballina et al, arXiv preprint arXiv:2507.06407, 2025</a></p>
 </section>
 <section id="how" class="slide level2">
 <h2>How?</h2>
-<p>Speedblogging * choose question of interest * self-organise into groups</p>
+<p>“Speedblogging” - an “evolved” way of writing up discussion notes from small groups * Split up in small groups and discuss * Write up notes together</p>
+</section>
+<section id="how-1" class="slide level2">
+<h2>How?</h2>
+<p>Speedblogging * choose question of interest * self-organise into groups * assign a chair and a scribe * chair ensures everyone gets opportunity to contribute * scribe takes notes</p>
 </section>
 <section id="speedblogging-tips" class="slide level2">
 <h2>Speedblogging tips</h2>
 <ul>
-<li>assign a chair and a scribe</li>
+<li>approximately half discussion/half writing</li>
+<li>work together
+<ul>
+<li>parallelise writing across sections</li>
+<li>review each others writing</li>
+<li>some research, some writing</li>
+</ul></li>
 </ul>
+<p>::: https://www.software.ac.uk/guide/speed-blogging-and-tips-writing-speed-blog-post :::</p>
+</section>
+<section id="speedblogging-template-five-important-things" class="slide level2 smaller">
+<h2>Speedblogging template: Five important things</h2>
+<ul>
+<li>Approximately half discussion/half writing</li>
+<li>Work together
+<ul>
+<li>Parallelise writing across sections</li>
+<li>Review each others writing</li>
+<li>Some research, some writing</li>
+</ul></li>
+<li>Limit the scope</li>
+</ul>
+<p>::: https://www.software.ac.uk/guide/speed-blogging-and-tips-writing-speed-blog-post :::</p>
+</section>
+<section id="speedblogging-template-summary-and-related-areas" class="slide level2 smaller">
+<h2>Speedblogging template: Summary and related areas</h2>
+<p>These could include all or some of: * Why is this issue important? * Summary of the discussion topic * Recommendations * Other significant points outside the main topic of discussion ::: https://www.software.ac.uk/guide/speed-blogging-and-tips-writing-speed-blog-post :::</p>
 </section>
 <section id="speedblogging-topics" class="slide level2">
 <h2>Speedblogging topics</h2>
-<p>TODO: link each of these topics to a google doc</p>
 <ul>
-<li>What would a bioimage analyst career path look like?</li>
-<li>How do we bridge the gap between generalist and domain-specific technical communities</li>
-<li>Bioimage analyst careers: what has been achieved/what is the next priority</li>
-<li>Open source in bioimage analysis</li>
+<li><a href="https://docs.google.com/document/d/1MiX2Oh7WzejUIADmIgD3kl56p_poIPLg7i6WFJdjhUs/edit?usp=sharing">What would a bioimage analyst career path look like?</a></li>
+<li><a href="https://docs.google.com/document/d/1vz4hEF4IRWIG-3cxrCe4axA_70PKJIS8eEKu5dThb4w/edit?usp=sharing">How do we bridge the gap between generalist and domain-specific technical communities</a></li>
+<li><a href="https://docs.google.com/document/d/1YRqN7c5cwL4pVS4RsMRAlbGH830mmuWo3akqqaytwA0/edit?usp=sharing">Bioimage analyst careers: what has been achieved/what is the next priority</a></li>
+<li><a href="https://docs.google.com/document/d/1E75-oyvitgmQ3lRhOCrjpGR5JuOEr7b8Mcjn0R4PIwg/edit?usp=sharing">Open source in bioimage analysis</a></li>
+<li><a href="https://docs.google.com/document/d/12tjIvs0F9cotkGP374YltyLBxOWO_5-6NLePJvSchpM/edit?usp=sharing">open topic 1</a></li>
+<li><a href="https://docs.google.com/document/d/14dlSf0Xrc8rsW-Hru-FewfN9O9Iacw2x30VTFQwDOPo/edit?usp=sharing">open topic 2</a></li>
 </ul>
 
 </section></section>
