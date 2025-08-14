@@ -471,7 +471,7 @@ Even better idea: multiscale images that [follow a standard](https://ngff.openmi
 * colour thresholded data chunk by chunk
 :::
 ::: {.column}
-![](img/mouse-tibia.png)
+![](img/mouse-tibia.png){height=450}
 :::
 ::::
 
@@ -486,7 +486,7 @@ Even better idea: multiscale images that [follow a standard](https://ngff.openmi
 * colour thresholded data chunk by chunk
 :::
 ::: {.column}
-![](img/colourful-mouse-tibia.png)
+![](img/colourful-mouse-tibia.png){height=450}
 :::
 ::::
 
