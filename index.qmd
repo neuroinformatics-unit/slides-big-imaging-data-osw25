@@ -757,12 +757,14 @@ From ["GloBIAS: strengthening the foundations of BioImage Analysis"; AA Corbat, 
 ## How?
 
 "Speedblogging" - an "evolved" way of writing up discussion notes from small groups
+
 * Split up in small groups and discuss
 * Write up notes together
 
 ## How?
 
 Speedblogging
+
 * choose question of interest
 * self-organise into groups
 * assign a chair and a scribe
@@ -778,7 +780,7 @@ Speedblogging
   * review each others writing
   * some research, some writing
 
-:::
+::: aside
 https://www.software.ac.uk/guide/speed-blogging-and-tips-writing-speed-blog-post
 :::
 
@@ -792,18 +794,20 @@ https://www.software.ac.uk/guide/speed-blogging-and-tips-writing-speed-blog-post
   * Some research, some writing
 * Limit the scope
 
-:::
+::: aside
 https://www.software.ac.uk/guide/speed-blogging-and-tips-writing-speed-blog-post
 :::
 
 ## Speedblogging template: Summary and related areas {.smaller}
 
 These could include all or some of:
+
 * Why is this issue important?
 * Summary of the discussion topic
 * Recommendations
 * Other significant points outside the main topic of discussion
-:::
+
+::: aside
 https://www.software.ac.uk/guide/speed-blogging-and-tips-writing-speed-blog-post
 :::
 
